@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
+/*   ft_put.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 02:29:19 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/10/09 02:33:07 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/10/09 05:35:45 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,47 @@ int	test_base(char *base)
 	return (i);
 }
 
-void	ft_putnbr_base(int n, char *base)
+int	ft_putnbr_base(long n, char *base, int count)
 {
-	int	base_len;
-	int	last_nb;
+	long	base_len;
+	long	last_nb;
 
 	base_len = test_base(base);
 	if (base_len < 2)
-		return ;
+		return (count);
 	if (n < 0)
+	{
 		write(1, "-", 1);
+		count++;
+	}
 	last_nb = n % base_len;
 	n = n / base_len;
 	if (n < 0)
 		n *= -1;
 	if (n > 0)
-		ft_putnbr_base(n, base);
+		count = ft_putnbr_base(n, base, count);
 	if (last_nb < 0)
 		last_nb *= -1;
 	write(1, &base[last_nb], 1);
+	count++;
+	return (count);
+}
+
+int	ft_putstr(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		write(1, &s[i], 1);
+		i++;
+	}
+	return (i);
+}
+
+int	ft_putchar(char c)
+{
+	write(1, &c, 1);
+	return (1);
 }
