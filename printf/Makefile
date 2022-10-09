@@ -14,7 +14,8 @@ CC = gcc
 
 NAME =	libftprintf.a
 
-SRC =
+SRC =	ft_printf.c \
+	ft_putnbr_base.c
 
 OBJ =	$(SRC:.c=.o)
 
