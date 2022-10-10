@@ -6,7 +6,7 @@
 #    By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/05 20:21:23 by tdhaussy          #+#    #+#              #
-#    Updated: 2022/10/05 20:27:40 by tdhaussy         ###   ########.fr        #
+#    Updated: 2022/10/09 22:59:50 by tdhaussy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CC = gcc
 NAME =	libftprintf.a
 
 SRC =	ft_printf.c \
-	ft_putnbr_base.c
+		ft_putargs.c
 
 OBJ =	$(SRC:.c=.o)
 

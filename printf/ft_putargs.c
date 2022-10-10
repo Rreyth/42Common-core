@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put.c                                           :+:      :+:    :+:   */
+/*   ft_putargs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 02:29:19 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/10/09 05:35:45 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/10/10 01:33:44 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 
-int	test_base(char *base)
+int	ft_baselen(char *base)
 {
 	int	i;
 	int	asc[127];
@@ -41,19 +41,19 @@ int	test_base(char *base)
 
 int	ft_putnbr_base(long n, char *base, int count)
 {
-	long	base_len;
+	long	base_lengh;
 	long	last_nb;
 
-	base_len = test_base(base);
-	if (base_len < 2)
+	base_lengh = ft_baselen(base);
+	if (base_lengh < 2)
 		return (count);
 	if (n < 0)
 	{
 		write(1, "-", 1);
 		count++;
 	}
-	last_nb = n % base_len;
-	n = n / base_len;
+	last_nb = n % base_lengh;
+	n = n / base_lengh;
 	if (n < 0)
 		n *= -1;
 	if (n > 0)
@@ -70,10 +70,13 @@ int	ft_putstr(char *s)
 	int	i;
 
 	i = 0;
-	while (s[i])
+	if (s != NULL)
 	{
-		write(1, &s[i], 1);
-		i++;
+		while (s[i])
+		{
+			write(1, &s[i], 1);
+			i++;
+		}
 	}
 	return (i);
 }
