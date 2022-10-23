@@ -19,6 +19,9 @@
 
 int	main()
 {
+//	void	*ptr;
+
+//	ptr = -1;
 /*	char	c = 'z';
 	char	*str = "BONSOIR";
 	int		n = 152;
@@ -47,8 +50,20 @@ int	main()
 	printf("mon count = %d \nle vrai count = %d\n", count, count2);
 //	ft_printf("test ft_printf flag invalide : %t , %w\n", x); IGNORE
 //	printf("test printf flag invalide : %t , %w\n", x); ERROR
-*/
 	ft_printf(" %x ", -1);
 	printf(" %x ", -1);
+	printf("%p\n", ptr);
+	ft_printf("%p\n", ptr);
+
+//	printf("%s\n", ptr);
+//	ft_printf("%s\n", NULL);
+//	free(ptr);
+	printf("%p\n", (void *) -1);
+	count = printf("%p\n", (void *) -1);
+	printf("printf : %d\n", count);
+	count2 = ft_printf("%p\n", (void *) -1);
+	printf("ft_printf : %d\n", count2);
+//	printf("LE VRAI \n%p\n%p", ptr, (void *) -1);*/
+	ft_printf("%%c");
 	return (0);
 }

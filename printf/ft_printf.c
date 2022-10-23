@@ -26,9 +26,24 @@ int	ft_check_flag(char c, char *flags)
 	return (0);
 }
 
+int	ft_print_ptr(unsigned long ptr)
+{
+	int	count;
+
+	count = 0;
+	if (ptr != 0)
+	{
+		count += ft_putstr("0x");
+		count += ft_putptr(ptr);
+	}
+	else
+		count += ft_putstr("(nil)");
+	return (count);
+}
+
 int	ft_launch_print(char c, va_list arg)
 {
-	int		count;
+	int				count;
 
 	count = 0;
 	if (c == 'c')
@@ -36,18 +51,15 @@ int	ft_launch_print(char c, va_list arg)
 	if (c == 's')
 		count += ft_putstr(va_arg(arg, char *));
 	if (c == 'i' || c == 'd')
-		count = ft_putnbr_base(va_arg(arg, int), "0123456789", count);
+		count += ft_putnbr_base(va_arg(arg, int), "0123456789");
 	if (c == 'x')
-		count = ft_putnbr_base(va_arg(arg, unsigned int), "0123456789abcdef", count);
+		count += ft_putnbr_base(va_arg(arg, unsigned int), "0123456789abcdef");
 	if (c == 'X')
-		count = ft_putnbr_base(va_arg(arg, unsigned int), "0123456789ABCDEF", count);
+		count += ft_putnbr_base(va_arg(arg, unsigned int), "0123456789ABCDEF");
 	if (c == 'u')
-		count = ft_putnbr_base(va_arg(arg, unsigned int), "0123456789", count);
+		count += ft_putnbr_base(va_arg(arg, unsigned int), "0123456789");
 	if (c == 'p')
-	{
-		count += ft_putstr("0x");
-		count = ft_putnbr_base(va_arg(arg, long), "0123456789abcdef", count);
-	}
+		count += ft_print_ptr(va_arg(arg, unsigned long));
 	if (c == '%')
 		count += ft_putchar(c);
 	return (count);
@@ -61,7 +73,7 @@ int	ft_printf(const char *s, ...)
 
 	i = 0;
 	count = 0;
-	va_start(arg, 0);
+	va_start(arg, s);
 	while (s[i])
 	{
 		if (s[i] == '%' && ft_check_flag(s[i + 1], "cspdiuxX%"))

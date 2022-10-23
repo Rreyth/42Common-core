@@ -15,35 +15,20 @@
 int	ft_baselen(char *base)
 {
 	int	i;
-	int	asc[127];
-	int	tmp;
 
 	i = 0;
-	while (i <= 127)
-	{
-		asc[i] = 0;
-		i++;
-	}
-	i = 0;
 	while (base[i] != '\0')
-	{
-		if (base[i] == 43 || base[i] == 45)
-			return (0);
-		tmp = base[i];
-		asc[tmp]++;
-		if (asc[tmp] > 1)
-			return (0);
-		else
-			i++;
-	}
+		i++;
 	return (i);
 }
 
-int	ft_putnbr_base(long n, char *base, int count)
+int	ft_putnbr_base(long n, char *base)
 {
-	long	base_lengh;
-	long	last_nb;
+	int	base_lengh;
+	int	last_nb;
+	int	count;
 
+	count = 0;
 	base_lengh = ft_baselen(base);
 	if (base_lengh < 2)
 		return (count);
@@ -57,9 +42,26 @@ int	ft_putnbr_base(long n, char *base, int count)
 	if (n < 0)
 		n *= -1;
 	if (n > 0)
-		count = ft_putnbr_base(n, base, count);
+		count += ft_putnbr_base(n, base);
 	if (last_nb < 0)
 		last_nb *= -1;
+	write(1, &base[last_nb], 1);
+	count++;
+	return (count);
+}
+
+int	ft_putptr(unsigned long n)
+{
+	int		last_nb;
+	int		count;
+	char	*base;
+
+	base = "0123456789abcdef";
+	count = 0;
+	last_nb = n % 16;
+	n = n / 16;
+	if (n > 0)
+		count += ft_putptr(n);
 	write(1, &base[last_nb], 1);
 	count++;
 	return (count);
@@ -77,6 +79,11 @@ int	ft_putstr(char *s)
 			write(1, &s[i], 1);
 			i++;
 		}
+	}
+	else
+	{
+		write(1, "(null)", 6);
+		i = 6;
 	}
 	return (i);
 }
