@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:52:32 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/10/24 20:51:49 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/10/26 22:57:10 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 
 # include <stdlib.h>
 
-//# define BUFFER_SIZE
+//# define BUFFER_SIZE 42
 
-int	ft_line_lengh(char *str);
+void	ft_strlcat(char *dst, char *src, int size);
+void	ft_rm_used(char *s, int size);
 
 #endif
