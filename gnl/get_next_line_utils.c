@@ -6,11 +6,13 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:54:17 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/10/26 23:01:25 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/10/28 20:09:02 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_strlcat(char *dst, char *src, int size)
+#include "get_next_line.h"
+
+/*void	ft_strlcat(char *dst, char *src, int size)
 {
 	int	i;
 	int	j;
@@ -27,17 +29,61 @@ void	ft_strlcat(char *dst, char *src, int size)
 		j++;
 	}
 	dst[i] = '\0';
-}
+}*/
 
-void	ft_rm_used(char *s, int size)
+/*int	ft_strlen (char *s)
 {
 	int	i;
 
 	i = 0;
-	while (i < size)
+	while (s[i])
+		i++;
+	return (i);
+}*/
+
+/*void	ft_rm_used(char *s, int start)
+{
+	int		i;
+
+	i = 0;
+	while (s[start + i] && i < start)
 	{
-		s[i] = s[i + 1];
+		s[i] = s[start + i];
 		i++;
 	}
 	s[i] = '\0';
-}
+}*/
+
+/*int	ft_find_nl(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '\n')
+			return (1);
+		i++;
+	}
+	return (0);
+}*/
+
+/*char	*ft_realloc_stock(char *s, int size)
+{
+	int		i;
+	char	*new_str;
+
+	i = 0;
+	new_str = malloc(sizeof(char) * size);
+	if (s)
+	{
+		while (s[i] && i < size)
+		{
+			new_str[i] = s[i];
+			i++;
+		}
+		new_str = '\0';
+		free(s);
+	}
+	return (new_str);
+}*/
