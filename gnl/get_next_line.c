@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:52:47 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/10/28 20:19:16 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/10/29 02:13:33 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@
 
 char	*get_next_line(int fd)
 {
+	/*
+	 * stock = buf
+	 * join
+	 * split / realloc \n
+	 */
 	return (str);
 }
 
