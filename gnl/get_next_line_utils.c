@@ -12,78 +12,126 @@
 
 #include "get_next_line.h"
 
-/*void	ft_strlcat(char *dst, char *src, int size)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (dst[i])
-		i++;
-	size += i + 1;
-	while (i < size && src[j])
-	{
-		dst[i] = src[j];
-		i++;
-		j++;
-	}
-	dst[i] = '\0';
-}*/
-
-/*int	ft_strlen (char *s)
+int	ft_strlen(char *s)
 {
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);
-}*/
+}
 
-/*void	ft_rm_used(char *s, int start)
+int	ft_strlcat(char *dst, char *src, int size)
 {
-	int		i;
+	int	i;
+	int	j;
+	int	size_src;
+	int	size_dst;
 
 	i = 0;
-	while (s[start + i] && i < start)
-	{
-		s[i] = s[start + i];
+	j = 0;
+	size_src = ft_strlen(src);
+	if (size == 0)
+		return (size_src);
+	while (dst[i] != '\0' && i < size)
 		i++;
+	size_dst = i;
+	if (dst[i] == '\0')
+	{
+		while (src[j] != '\0' && i < size)
+		{
+			dst[i] = src[j];
+			i++;
+			j++;
+		}
+		dst[i] = '\0';
 	}
-	s[i] = '\0';
-}*/
+	return (size_dst + size_src);
+}
 
-/*int	ft_find_nl(char *s)
+int	ft_find_nl(char *s)
 {
 	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 	{
 		if (s[i] == '\n')
 			return (1);
 		i++;
 	}
+	if (s[i] == '\0')
+		return (1);
 	return (0);
-}*/
+}
 
-/*char	*ft_realloc_stock(char *s, int size)
+char	*ft_realloc_stock(char *s)
 {
 	int		i;
+	int		j;
 	char	*new_str;
 
 	i = 0;
-	new_str = malloc(sizeof(char) * size);
-	if (s)
+	j = 0;
+	if (!s)
 	{
-		while (s[i] && i < size)
-		{
-			new_str[i] = s[i];
-			i++;
-		}
-		new_str = '\0';
-		free(s);
+//		if (BUFFER_SIZE > )
+//			new_str = malloc(sizeof(char) * (file_len + 1));
+//		else
+		new_str = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+		if (!new_str)
+			return (NULL);
+		return (new_str);
 	}
+	while (s[i] && s[i] != '\n')
+		i++;
+	if (s[i] == '\0')
+	{
+		free(s);
+		return (NULL);
+	}
+	i++;
+	new_str = malloc(sizeof(char) * (ft_strlen(&s[i]) + 1));
+	if (!new_str)
+	{
+		free(s);
+		return (NULL);
+	}
+	while (s[i])
+	{
+		new_str[j] = s[i];
+		i++;
+		j++;
+	}
+	new_str[j] = '\0';
+	free(s);
 	return (new_str);
-}*/
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*str;
+	int		size;
+	int		i;
+
+	i = 0;
+	while (s2[i] && s2[i] != '\n')
+		i++;
+	size = ft_strlen(s1) + i + 1;
+	str = malloc(sizeof(char) * size + 1);
+	if (str == NULL)
+		return (NULL);
+	str[0] = '\0';
+	if (s1)
+	{
+		ft_strlcat(str, s1, ft_strlen(s1) + 1);
+		free(s1);
+	}
+	ft_strlcat(str, s2, size);
+	return (str);
+}

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <unistd.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -19,11 +18,36 @@
 
 char	*get_next_line(int fd)
 {
-	/*
-	 * stock = buf
-	 * join
-	 * split / realloc \n
-	 */
+	static char	*stock;
+	char		*str;
+	int			ret;
+
+	str = NULL;
+	if (stock)
+	{
+		str = ft_strjoin(str, stock);
+		stock = ft_realloc_stock(stock);
+	}
+	if (!stock)
+	{
+		while (!ft_find_nl(stock))
+		{
+			stock = ft_realloc_stock(stock);
+			ret = read(fd, stock, BUFFER_SIZE);
+			if (ret <= 0)
+			{
+				free(stock);
+				if (str)
+					free(str);
+				return (NULL);
+			}
+			stock[ret] = '\0';
+			str = ft_strjoin(str, stock);
+			stock = ft_realloc_stock(stock);
+		}
+	}
+	if (ret == 0 && !stock)
+		return (NULL);
 	return (str);
 }
 
@@ -33,6 +57,9 @@ int	main(void)
 	char	*str;
 
 	fd = open("testtxt", O_RDONLY);
+	str = get_next_line(fd);
+	printf("%s", str);
+	free(str);
 	str = get_next_line(fd);
 	printf("%s", str);
 	free(str);
