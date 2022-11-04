@@ -65,29 +65,15 @@ int	ft_find_nl(char *s)
 			return (1);
 		i++;
 	}
-	if (s[i] == '\0')
-		return (1);
 	return (0);
 }
 
 char	*ft_realloc_stock(char *s)
 {
 	int		i;
-	int		j;
 	char	*new_str;
 
 	i = 0;
-	j = 0;
-	if (!s)
-	{
-//		if (BUFFER_SIZE > )
-//			new_str = malloc(sizeof(char) * (file_len + 1));
-//		else
-		new_str = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-		if (!new_str)
-			return (NULL);
-		return (new_str);
-	}
 	while (s[i] && s[i] != '\n')
 		i++;
 	if (s[i] == '\0')
@@ -102,13 +88,8 @@ char	*ft_realloc_stock(char *s)
 		free(s);
 		return (NULL);
 	}
-	while (s[i])
-	{
-		new_str[j] = s[i];
-		i++;
-		j++;
-	}
-	new_str[j] = '\0';
+	new_str[0] = '\0';
+	ft_strlcat(new_str, &s[i], ft_strlen(&s[i]) + 1);
 	free(s);
 	return (new_str);
 }

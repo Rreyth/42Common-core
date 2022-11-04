@@ -11,16 +11,34 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <fcntl.h>
+
+char	*ft_start_alloc(char *s)
+{
+	if (s)
+		free(s);
+	s = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	return (s);
+}
+
+char	*ft_stock_read(char *stock, int fd)
+{
+	int	ret;
+
+	stock = ft_start_alloc(stock);
+	ret = read(fd, stock, BUFFER_SIZE);
+	if (ret <= 0)
+	{
+		free(stock);
+		return (NULL);
+	}
+	stock[ret] = '\0';
+	return (stock);
+}
 
 char	*get_next_line(int fd)
 {
 	static char	*stock;
 	char		*str;
-	int			ret;
 
 	str = NULL;
 	if (stock)
@@ -32,64 +50,16 @@ char	*get_next_line(int fd)
 	{
 		while (!ft_find_nl(stock))
 		{
-			stock = ft_realloc_stock(stock);
-			ret = read(fd, stock, BUFFER_SIZE);
-			if (ret <= 0)
+			stock = ft_stock_read(stock, fd);
+			if (!stock)
 			{
-				free(stock);
 				if (str)
 					free(str);
 				return (NULL);
 			}
-			stock[ret] = '\0';
 			str = ft_strjoin(str, stock);
-			stock = ft_realloc_stock(stock);
 		}
+		stock = ft_realloc_stock(stock);
 	}
-	if (ret == 0 && !stock)
-		return (NULL);
 	return (str);
-}
-
-int	main(void)
-{
-	int	fd;
-	char	*str;
-
-	fd = open("testtxt", O_RDONLY);
-	str = get_next_line(fd);
-	printf("%s", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("%s", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("%s", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("%s", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("%s", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("%s", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("%s", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("%s", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("%s", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("%s", str);
-	free(str);
-	str = get_next_line(fd);
-	printf("%s", str);
-	free(str);
-	close(fd);
-	return (0);
 }
