@@ -6,40 +6,47 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:52:47 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/10/29 02:13:33 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/08 04:12:33 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_start_alloc(char *s)
+void	ft_start_alloc(char **s)
 {
-	if (s)
-		free(s);
-	s = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	return (s);
+	if (*s)
+		free(*s);
+	*s = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!(*s))
+	{
+		*s = NULL;
+		return ;
+	}
 }
 
-char	*ft_stock_read(char *stock, int fd)
+int	ft_stock_read(char **p_stock, int fd)
 {
 	int	ret;
 
-	stock = ft_start_alloc(stock);
-	ret = read(fd, stock, BUFFER_SIZE);
-	if (ret <= 0)
+	ft_start_alloc(p_stock);
+	ret = read(fd, *p_stock, BUFFER_SIZE);
+	if (ret < 0)
 	{
-		free(stock);
-		return (NULL);
+		free(*p_stock);
+		*p_stock = NULL;
+		return (ret);
 	}
-	stock[ret] = '\0';
-	return (stock);
+	(*p_stock)[ret] = '\0';
+	return (ret);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*stock;
 	char		*str;
+	int			ret;
 
+	ret = BUFFER_SIZE;
 	str = NULL;
 	if (stock)
 	{
@@ -48,15 +55,20 @@ char	*get_next_line(int fd)
 	}
 	if (!stock)
 	{
-		while (!ft_find_nl(stock))
+		while (!ft_find_nl(stock) && ret == BUFFER_SIZE)
 		{
-			stock = ft_stock_read(stock, fd);
-			if (!stock)
+			ret = ft_stock_read(&stock, fd);
+			if (!stock || ret < 0)
 			{
 				if (str)
+				{
 					free(str);
+					str = NULL;
+				}
 				return (NULL);
 			}
+			if (stock[0] == '\0')
+				break ;
 			str = ft_strjoin(str, stock);
 		}
 		stock = ft_realloc_stock(stock);

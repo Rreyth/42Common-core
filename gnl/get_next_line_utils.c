@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:54:17 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/10/28 20:09:02 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/08 03:17:46 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ char	*ft_realloc_stock(char *s)
 	if (s[i] == '\0')
 	{
 		free(s);
+		s = NULL;
 		return (NULL);
 	}
 	i++;
@@ -86,11 +87,13 @@ char	*ft_realloc_stock(char *s)
 	if (!new_str)
 	{
 		free(s);
+		s = NULL;
 		return (NULL);
 	}
 	new_str[0] = '\0';
 	ft_strlcat(new_str, &s[i], ft_strlen(&s[i]) + 1);
 	free(s);
+	s = NULL;
 	return (new_str);
 }
 
@@ -112,6 +115,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	{
 		ft_strlcat(str, s1, ft_strlen(s1) + 1);
 		free(s1);
+		s1 = NULL;
 	}
 	ft_strlcat(str, s2, size);
 	return (str);
