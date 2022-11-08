@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:52:32 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/10/28 19:47:12 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/08 22:57:47 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #  define BUFFER_SIZE 1
 # endif
 
+void	ft_free_all(char **s1, char **s2);
+void	ft_free_one(char **s);
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_realloc_stock(char *s);

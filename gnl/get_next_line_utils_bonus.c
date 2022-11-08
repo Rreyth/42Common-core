@@ -74,23 +74,26 @@ char	*ft_realloc_stock(char *s)
 	char	*new_str;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	while (s[i] && s[i] != '\n')
 		i++;
-	if (s[i] == '\0')
+	if (s[i] == '\0' || s[i + 1] == '\0')
 	{
-		free(s);
+		ft_free_one(&s);
 		return (NULL);
 	}
 	i++;
 	new_str = malloc(sizeof(char) * (ft_strlen(&s[i]) + 1));
 	if (!new_str)
 	{
-		free(s);
+		ft_free_all(&s, &new_str);
 		return (NULL);
 	}
 	new_str[0] = '\0';
 	ft_strlcat(new_str, &s[i], ft_strlen(&s[i]) + 1);
 	free(s);
+	s = NULL;
 	return (new_str);
 }
 
@@ -101,6 +104,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		i;
 
 	i = 0;
+	if (!s2)
+		return (NULL);
 	while (s2[i] && s2[i] != '\n')
 		i++;
 	size = ft_strlen(s1) + i + 1;
@@ -112,6 +117,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	{
 		ft_strlcat(str, s1, ft_strlen(s1) + 1);
 		free(s1);
+		s1 = NULL;
 	}
 	ft_strlcat(str, s2, size);
 	return (str);

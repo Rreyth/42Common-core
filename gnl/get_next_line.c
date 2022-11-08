@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:52:47 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/08 04:12:33 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/08 22:57:20 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,29 @@ void	ft_start_alloc(char **s)
 	{
 		*s = NULL;
 		return ;
+	}
+}
+
+void	ft_free_all(char **s1, char **s2)
+{
+	if (*s1)
+	{
+		free(*s1);
+		*s1 = NULL;
+	}
+	if (*s2)
+	{
+		free(*s2);
+		*s2 = NULL;
+	}
+}
+
+void	ft_free_one(char **s)
+{
+	if (*s)
+	{
+		free(*s);
+		*s = NULL;
 	}
 }
 
@@ -58,17 +81,8 @@ char	*get_next_line(int fd)
 		while (!ft_find_nl(stock) && ret == BUFFER_SIZE)
 		{
 			ret = ft_stock_read(&stock, fd);
-			if (!stock || ret < 0)
-			{
-				if (str)
-				{
-					free(str);
-					str = NULL;
-				}
-				return (NULL);
-			}
-			if (stock[0] == '\0')
-				break ;
+			if (!stock || ret < 0 || (stock[0] == '\0' && !str))
+				ft_free_all(&str, &stock);
 			str = ft_strjoin(str, stock);
 		}
 		stock = ft_realloc_stock(stock);

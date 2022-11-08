@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:54:17 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/08 03:17:46 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/08 22:58:12 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,20 @@ char	*ft_realloc_stock(char *s)
 	char	*new_str;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	while (s[i] && s[i] != '\n')
 		i++;
-	if (s[i] == '\0')
+	if (s[i] == '\0' || s[i + 1] == '\0')
 	{
-		free(s);
-		s = NULL;
+		ft_free_one(&s);
 		return (NULL);
 	}
 	i++;
 	new_str = malloc(sizeof(char) * (ft_strlen(&s[i]) + 1));
 	if (!new_str)
 	{
-		free(s);
-		s = NULL;
+		ft_free_all(&s, &new_str);
 		return (NULL);
 	}
 	new_str[0] = '\0';
@@ -104,6 +104,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		i;
 
 	i = 0;
+	if (!s2)
+		return (NULL);
 	while (s2[i] && s2[i] != '\n')
 		i++;
 	size = ft_strlen(s1) + i + 1;
