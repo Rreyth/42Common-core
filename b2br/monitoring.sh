@@ -1,5 +1,9 @@
 #!/bin/bash
 
+time_log=$(who | tail -c 2)
+time_act=$(timedatectl | grep Local | tail -c 9 | cut -b 1)
+if [ $time_log -eq $time_act ]
+then
 architecture=$(uname -a)
 pcpu=$(cat /proc/cpuinfo | grep "physical id" | wc -l)
 vcpu=$(cat /proc/cpuinfo | grep processor | wc -l)
@@ -31,3 +35,4 @@ wall "#Architecture: $architecture
 #User log: $usr_log
 #Network: $ip ($mac)
 #Sudo : $sudo cmd"
+fi
