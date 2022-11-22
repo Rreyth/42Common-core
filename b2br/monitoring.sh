@@ -10,9 +10,9 @@ vcpu=$(cat /proc/cpuinfo | grep processor | wc -l)
 mem_tot=$(free --mega | awk '/Mem:/ {print $2}')
 mem_use=$(free --mega | awk '/Mem:/ {print $3}')
 mem_perc=$((100*$mem_use/$mem_tot))
-dsk_use=$(df -Bm | sed 1d | awk '{total_use += $3} END {print total_use}')
-dsk_tot=$(df -Bg | sed 1d | awk '{total += $2} END {print total}')
-dsk_perc=$((100*$dsk_use/($dsk_tot*1000)))
+dsk_use=$(df -h --total | awk '/total/ {print $3}')
+dsk_tot=$(df -h --total | awk '/total/ {print $2}')
+dsk_perc=$(df -h --total | awk '/total/ {print $5}')
 cpu_load=$(top -n 1 -b | awk '/^%Cpu/{print 100-$8"%"}')
 lst_boot=$(who -b | awk '{print $3,$4}')
 lvm_c=$(lsblk | grep lvm | wc -l)
@@ -27,7 +27,7 @@ wall "#Architecture: $architecture
 #CPU physical : $pcpu
 #vCPU : $vcpu
 #Memory Usage: $mem_use/$mem_tot MB ($mem_perc%)
-#Disk Usage: $dsk_use/$dsk_tot Gb ($dsk_perc%)
+#Disk Usage: $dsk_use/$dsk_tot ($dsk_perc)
 #CPU load: $cpu_load
 #Last boot: $lst_boot
 #LVM use: $lvm_use
