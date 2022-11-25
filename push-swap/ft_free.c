@@ -1,48 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utils.c                                  :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/24 18:39:26 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/25 15:53:22 by tdhaussy         ###   ########.fr       */
+/*   Created: 2022/11/25 15:51:12 by tdhaussy          #+#    #+#             */
+/*   Updated: 2022/11/25 22:52:38 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_strlen(char const *s)
+void	ft_free_stack(t_struct **s)
+{
+	free((*s)->tab);
+	free(*s);
+}
+
+void	ft_free_error(t_struct **s)
+{
+	free((*s)->tab);
+	free(*s);
+	ft_exit_error();
+}
+
+void	ft_atoi_error(t_struct **s, char **tab)
 {
 	int	i;
 
 	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-int	ft_args_len(int ac, char **av)
-{
-	int	i;
-	int	len;
-
-	i = 1;
-	len = 0;
-	while (i < ac)
+	if (*s)
 	{
-		len += ft_strlen(av[i]);
-		i++;
+		if ((*s)->tab)
+			free((*s)->tab);
+		free(*s);
 	}
-	return (len);
-}
-
-int	ft_tab_len(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i);
+	(void) tab;
+	if (tab)
+	{
+		while (tab[i])
+		{
+			free(tab[i]);
+			i++;
+		}
+		free(tab);
+		tab = NULL;
+	}
+	ft_exit_error();
 }

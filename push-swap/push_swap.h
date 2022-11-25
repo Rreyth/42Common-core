@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:23:24 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/24 23:07:26 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/25 22:48:26 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct t_struct{
+typedef struct s_struct{
 	int	*tab;
 	int	max_size;
 	int	size;
@@ -26,12 +26,15 @@ typedef struct t_struct{
 
 void		ft_check_args(int ac, char **av);
 void		ft_exit_error(void);
-void		ft_free_stack(t_struct s);
+void		ft_free_error(t_struct **s);
+void		ft_free_stack(t_struct **s);
+void		ft_atoi_error(t_struct **s, char **tab);
+void		ft_check_duplicate(t_struct **stack);
 
-t_struct	ft_get_stacked(int ac, char **av);
+t_struct	*ft_get_stacked(int ac, char **av);
 char		*ft_join_args(int ac, char **av);
-int			*ft_atoi_tab(char **tab);
-int			ft_atoi(const char *nptr);
+void		ft_atoi_tab(char **tab, t_struct **stack);
+int			ft_atoi(const char *nptr, t_struct **stack, char **tab);
 int			ft_tab_len(char **tab);
 
 char		**ft_split(char const *s, char c);
