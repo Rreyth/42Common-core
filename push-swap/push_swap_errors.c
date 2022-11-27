@@ -6,12 +6,11 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 17:23:26 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/27 17:07:10 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/27 23:02:10 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdlib.h>
 
 void	ft_exit_error(void)
 {
