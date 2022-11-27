@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arg_to_stack.c                                  :+:      :+:    :+:   */
+/*   args_to_stack.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:26:38 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/25 22:53:30 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/27 20:29:41 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_atoi_tab(char **tab, t_struct **stack)
 	if (!*tab)
 		ft_exit_error();
 	i = 0;
-	(*stack)->tab = malloc((sizeof(int *)) * (ft_tab_len(tab)));
+	(*stack)->tab = malloc((sizeof(int)) * (ft_tab_len(tab)));
 	if (!((*stack)->tab))
 		ft_atoi_error(stack, tab);
 	while (tab[i])
@@ -95,8 +95,11 @@ void	ft_atoi_tab(char **tab, t_struct **stack)
 	(*stack)->max_size = i;
 	(*stack)->size = i;
 	i = 0;
-	while (tab[i++])
+	while (tab[i])
+	{
 		free(tab[i]);
+		i++;
+	}
 	free(tab);
 	tab = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:39:26 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/25 15:53:22 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/27 20:46:42 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,45 @@ int	ft_tab_len(char **tab)
 	while (tab[i])
 		i++;
 	return (i);
+}
+
+int	ft_is_sorted(t_struct *stack)
+{
+	int	i;
+
+	i = 0;
+	while (i + 1 < stack->size)
+	{
+		if (stack->tab[i] > stack->tab[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	normalize(t_struct *stack)
+{
+	int	*tmp;
+	int	norm;
+	int	i;
+	int	j;
+
+	i = 0;
+	tmp = malloc(sizeof(int) * stack->size);
+	if (!tmp)
+		ft_free_error(&stack);
+	while (i < stack->size)
+	{
+		j = 0;
+		norm = 0;
+		while (j < stack->size)
+			if (stack->tab[i] > stack->tab[j++])
+				norm++;
+		tmp[i] = norm;
+		i++;
+	}
+	i = -1;
+	while (++i < stack->size)
+		stack->tab[i] = tmp[i];
+	free(tmp);
 }
