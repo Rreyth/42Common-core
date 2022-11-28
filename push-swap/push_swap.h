@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:23:24 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/27 22:42:05 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/28 21:38:44 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,15 @@ void		dual_rotate(t_struct *stack_a, t_struct *stack_b);
 void		reverse_rotate(t_struct *stack, char name);
 void		dual_reverse_rotate(t_struct *stack_a, t_struct *stack_b);
 void		push(t_struct *stack_a, t_struct *stack_b, char name);
-int			ft_is_sorted(t_struct *stack);
+int			ft_is_sort(t_struct *stack);
 
 /*---------------------------------Sort_algo----------------------------------*/
 void		ft_launch_sort(t_struct *stack_a);
 void		small_sort(t_struct *stack);
 void		global_sort(t_struct *stack_a);
+
+/*---------------------------------Global_Sort_Utils--------------------------*/
+int			find_highest(t_struct *stack);
+int			find_s_highest(t_struct *stack, int highest);
 
 #endif

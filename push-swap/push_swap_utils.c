@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:39:26 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/27 20:46:42 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:11:31 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_tab_len(char **tab)
 	return (i);
 }
 
-int	ft_is_sorted(t_struct *stack)
+int	ft_is_sort(t_struct *stack)
 {
 	int	i;
 

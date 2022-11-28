@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 17:07:32 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/27 22:20:47 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/28 21:24:00 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	reverse_rotate(t_struct *stack, char name)
 	int	tmp;
 	int	i;
 
-	i = stack->size;
-	tmp = stack->tab[i - 1];
+	i = stack->size - 1;
+	tmp = stack->tab[i];
 	while (i > 0)
 	{
 		stack->tab[i] = stack->tab[i - 1];

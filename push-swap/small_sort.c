@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/27 19:33:42 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/27 22:34:55 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/28 21:21:48 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	sort_3(t_struct *stack)
 {
-	if (ft_is_sorted(stack))
+	if (ft_is_sort(stack))
 		return ;
 	if ((stack->tab[0] > stack->tab[1] && stack->tab[1] > stack->tab[2])
 		|| (stack->tab[0] < stack->tab[1] && stack->tab[0] < stack->tab[2])
@@ -58,7 +58,7 @@ void	push_smallest(t_struct *stack_a, t_struct *stack_b)
 		j++;
 	}
 	up_smallest(stack_a, i, 'a');
-	if (!ft_is_sorted(stack_a))
+	if (!ft_is_sort(stack_a))
 		push(stack_a, stack_b, 'b');
 }
 
@@ -75,8 +75,10 @@ void	sort_45(t_struct *stack_a)
 		ft_free_stack(&stack_b);
 		ft_free_error(&stack_a);
 	}
+	stack_b->max_size = stack_a->max_size;
+	stack_b->size = 0;
 	push_smallest(stack_a, stack_b);
-	if (stack_a->max_size == 5 && !(ft_is_sorted(stack_a)))
+	if (stack_a->max_size == 5 && !(ft_is_sort(stack_a)))
 		push_smallest(stack_a, stack_b);
 	sort_3(stack_a);
 	push(stack_a, stack_b, 'a');
