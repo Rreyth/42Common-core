@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:26:18 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/28 22:31:46 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/29 14:11:37 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	ft_launch_sort(t_struct *stack_a)
 		small_sort(stack_a);
 	else
 		global_sort(stack_a);
-//	if (!ft_is_sort(stack_a))
-//		ft_launch_sort(stack_a);
 }
 
 int	main(int argc, char **argv)

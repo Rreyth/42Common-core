@@ -6,14 +6,12 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:23:24 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/28 21:38:44 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/29 14:27:15 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-
-# include <stdio.h>
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -67,5 +65,7 @@ void		global_sort(t_struct *stack_a);
 /*---------------------------------Global_Sort_Utils--------------------------*/
 int			find_highest(t_struct *stack);
 int			find_s_highest(t_struct *stack, int highest);
+int			find_pivot(t_struct *stack);
+int			check_closest(t_struct *stack, int f_index, int s_index);
 
 #endif
