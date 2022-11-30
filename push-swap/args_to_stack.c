@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 18:26:38 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/27 20:29:41 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/30 12:07:19 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,24 +104,24 @@ void	ft_atoi_tab(char **tab, t_struct **stack)
 	tab = NULL;
 }
 
-t_struct	*ft_get_stacked(int ac, char **av)
+t_struct	*args_to_stack(int ac, char **av)
 {
 	int			i;
-	char		*joined;
-	char		**splited;
+	char		*args_join;
+	char		**args_split;
 	t_struct	*stack;
 
 	i = 0;
-	splited = NULL;
+	args_split = NULL;
 	stack = malloc(sizeof(t_struct));
 	if (!stack)
 		ft_exit_error();
-	joined = ft_join_args(ac, av);
-	splited = ft_split(joined, ' ');
-	free(joined);
-	if (!splited)
+	args_join = ft_join_args(ac, av);
+	args_split = ft_split(args_join, ' ');
+	free(args_join);
+	if (!args_split)
 		ft_exit_error();
-	ft_atoi_tab(splited, &stack);
+	ft_atoi_tab(args_split, &stack);
 	ft_check_duplicate(&stack);
 	return (stack);
 }

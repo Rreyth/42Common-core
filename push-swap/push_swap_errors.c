@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 17:23:26 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/27 23:02:10 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:27:02 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ void	ft_exit_error(void)
 {
 	write(2, "Error\n", 6);
 	exit(0);
+}
+
+void	checker_error(char *str)
+{
+	free(str);
+	ft_exit_error();
 }
 
 int	ft_check_char(char c, int op)
