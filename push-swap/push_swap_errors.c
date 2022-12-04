@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 17:23:26 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/30 18:27:02 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:46:13 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ void	ft_exit_error(void)
 	exit(0);
 }
 
-void	checker_error(char *str)
+void	checker_error(char *str, t_struct *stack_a, t_struct *stack_b)
 {
 	free(str);
+	ft_free_stack(&stack_a);
+	ft_free_stack(&stack_b);
 	ft_exit_error();
 }
 

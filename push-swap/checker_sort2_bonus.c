@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:43:33 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/30 19:16:56 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:55:04 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	checker_rotate(t_struct *stack)
 	int	i;
 
 	i = 0;
+	if (stack->size == 0)
+		return ;
 	tmp = stack->tab[0];
 	while (i + 1 < stack->size)
 	{
@@ -38,6 +40,8 @@ void	checker_reverse_rotate(t_struct *stack)
 	int	tmp;
 	int	i;
 
+	if (stack->size == 0)
+		return ;
 	i = stack->size - 1;
 	tmp = stack->tab[i];
 	while (i > 0)

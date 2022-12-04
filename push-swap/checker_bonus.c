@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 12:14:37 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/30 19:22:00 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:51:17 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 			return (str1[i] - str2[i]);
 		i++;
 	}
+	if ((s1[i] == '\0' || s1[i] == '\n') && s2[i] != '\0')
+		return (str1[i] - str2[i]);
 	return (0);
 }
 
@@ -55,7 +57,7 @@ void	check_instructions(t_struct *stack_a, t_struct *stack_b, char *str)
 	else if (!ft_strncmp(str, "rrr", ft_strlen(str) - 1))
 		checker_dual_reverse_rotate(stack_a, stack_b);
 	else
-		checker_error(str);
+		checker_error(str, stack_a, stack_b);
 }
 
 t_struct	*init_stack(t_struct *stack_a)

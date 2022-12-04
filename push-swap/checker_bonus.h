@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 16:29:21 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/30 19:22:30 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:45:04 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		ft_free_error(t_struct **s);
 void		ft_free_stack(t_struct **s);
 void		ft_atoi_error(t_struct **s, char **tab);
 void		ft_check_duplicate(t_struct **stack);
-void		checker_error(char *str);
+void		checker_error(char *str, t_struct *stack_a, t_struct *stack_b);
 
 /*---------------------------------Stacking-----------------------------------*/
 t_struct	*args_to_stack(int ac, char **av);
