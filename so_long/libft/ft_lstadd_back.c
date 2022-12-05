@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 17:19:05 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/05 21:12:19 by tdhaussy         ###   ########.fr       */
+/*   Created: 2022/10/04 18:41:47 by tdhaussy          #+#    #+#             */
+/*   Updated: 2022/12/05 13:21:48 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	char	**map;
-
-	check_args(argc, argv[1]);
-	map = make_map(argv[1]);
-	ft_free_map(map);
-	return (0);
+	if (*lst == NULL)
+		*lst = new;
+	else
+		ft_lstlast(*lst)->next = new;
 }

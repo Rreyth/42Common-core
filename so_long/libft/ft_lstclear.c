@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 17:19:05 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/05 21:12:19 by tdhaussy         ###   ########.fr       */
+/*   Created: 2022/10/04 19:09:51 by tdhaussy          #+#    #+#             */
+/*   Updated: 2022/12/05 13:22:51 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	char	**map;
+	t_list	*tmp;
 
-	check_args(argc, argv[1]);
-	map = make_map(argv[1]);
-	ft_free_map(map);
-	return (0);
+	if (lst == NULL || del == NULL)
+		return ;
+	tmp = *lst;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		if ((*lst)->next != NULL)
+			(*lst)->next = NULL;
+		ft_lstdelone(*lst, del);
+		*lst = tmp;
+	}
+	free(tmp);
 }

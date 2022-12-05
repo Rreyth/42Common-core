@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 17:19:05 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/05 21:12:19 by tdhaussy         ###   ########.fr       */
+/*   Created: 2022/09/28 16:54:35 by tdhaussy          #+#    #+#             */
+/*   Updated: 2022/09/28 16:56:42 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	char	**map;
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-	check_args(argc, argv[1]);
-	map = make_map(argv[1]);
-	ft_free_map(map);
+	i = 0;
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	while (i < n && (s1[i] != '\0' || s2[i] != '\0'))
+	{
+		if (s1[i] != s2[i])
+			return (str1[i] - str2[i]);
+		i++;
+	}
 	return (0);
 }

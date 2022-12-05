@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 17:19:05 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/05 21:12:19 by tdhaussy         ###   ########.fr       */
+/*   Created: 2022/10/04 18:16:54 by tdhaussy          #+#    #+#             */
+/*   Updated: 2022/12/05 13:32:08 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_lstsize(t_list *lst)
 {
-	char	**map;
+	int	i;
 
-	check_args(argc, argv[1]);
-	map = make_map(argv[1]);
-	ft_free_map(map);
-	return (0);
+	i = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
 }

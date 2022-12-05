@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 17:19:05 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/05 21:12:19 by tdhaussy         ###   ########.fr       */
+/*   Created: 2022/09/28 11:06:24 by tdhaussy          #+#    #+#             */
+/*   Updated: 2022/09/28 11:45:20 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	char	**map;
+	unsigned char	*dst_tmp;
+	unsigned char	*src_tmp;
 
-	check_args(argc, argv[1]);
-	map = make_map(argv[1]);
-	ft_free_map(map);
-	return (0);
+	dst_tmp = (unsigned char *)dest;
+	src_tmp = (unsigned char *)src;
+	if (dest == 0 && src == 0)
+		return (NULL);
+	if (dest < src)
+		return (ft_memcpy(dest, src, n));
+	else
+	{
+		while (n > 0)
+		{
+			dst_tmp[n - 1] = src_tmp[n - 1];
+			n--;
+		}
+	}
+	return (dest);
 }

@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 17:19:05 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/05 21:12:19 by tdhaussy         ###   ########.fr       */
+/*   Created: 2022/09/28 19:30:02 by tdhaussy          #+#    #+#             */
+/*   Updated: 2022/09/28 19:53:48 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	char	**map;
+	unsigned char	*array;
+	unsigned int	nb_byte;
 
-	check_args(argc, argv[1]);
-	map = make_map(argv[1]);
-	ft_free_map(map);
-	return (0);
+	nb_byte = nmemb * size;
+	if (nb_byte == 0)
+		return (malloc(0));
+	if (nb_byte / size != nmemb)
+		return (NULL);
+	array = malloc(nmemb * size);
+	if (array == NULL)
+		return (NULL);
+	ft_memset(array, 0, nb_byte);
+	return (array);
 }

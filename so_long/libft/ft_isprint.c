@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/04 17:19:05 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/05 21:12:19 by tdhaussy         ###   ########.fr       */
+/*   Created: 2022/09/27 14:17:21 by tdhaussy          #+#    #+#             */
+/*   Updated: 2022/10/24 16:55:06 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
-
-int	main(int argc, char **argv)
+int	ft_isprint(int c)
 {
-	char	**map;
-
-	check_args(argc, argv[1]);
-	map = make_map(argv[1]);
-	ft_free_map(map);
+	if (c >= 32 && c <= 126)
+		return (1);
 	return (0);
 }
