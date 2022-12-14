@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 12:39:58 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/05 16:57:55 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/12/13 19:05:42 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	parse_error(int code)
 	else if (code == 2)
 		write(2, "Invalid map\n", 12);
 	else if (code == 3)
-		write(2, "Map must be a '.ber' file\n", 26);
+		write(2, "Invalid file\n", 13);
 	else if (code == 4)
 		write(2, "File not found\n", 15);
 	exit(1);

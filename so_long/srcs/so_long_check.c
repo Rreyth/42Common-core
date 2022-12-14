@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 20:36:49 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/05 21:10:36 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/12/13 19:05:01 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	check_args(int ac, char *file)
 		parse_error(0);
 	if (ac > 2)
 		parse_error(1);
-	if (len < 5 || ft_strncmp(&file[len - 4], ".ber", 4))
+	if (len < 5 || ft_strncmp(&file[len - 4], ".ber", 4)
+		|| !ft_strncmp(&file[len - 5], "/.ber", 5))
 		parse_error(3);
 }
 

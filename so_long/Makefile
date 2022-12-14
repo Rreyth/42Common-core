@@ -6,7 +6,7 @@
 #    By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/03 15:21:23 by tdhaussy          #+#    #+#              #
-#    Updated: 2022/12/05 17:44:44 by tdhaussy         ###   ########.fr        #
+#    Updated: 2022/12/13 21:25:33 by tdhaussy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,11 @@ SRC =	srcs/so_long.c \
 		srcs/so_long_errors.c \
 		srcs/so_long_free.c \
 		srcs/so_long_map.c \
-		srcs/so_long_utils.c
+		srcs/so_long_utils.c \
+		srcs/so_long_utils_map.c \
+		srcs/game_utils.c \
+		srcs/game_display.c \
+		srcs/player_move.c
 
 RM = rm -rf
 
@@ -42,7 +46,8 @@ $(NAME):	$(OBJ_DIR) $(OBJ)
 		@echo "*     \033[1;33mCOMPILING\033[1;0m      *"
 		@echo "**********************\n"
 		@make -C libft
-		$(CC) $(CFLAGS) $(OBJ) libft/libft.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $@
+		@make -C minilibx-linux
+		$(CC) $(CFLAGS) $(OBJ) libft/libft.a minilibx-linux/libmlx.a minilibx-linux/libmlx_Linux.a -L/usr/lib -lXext -lX11 -lm -lz -o $@
 		@echo "**********************"
 		@echo "*        \033[1;32mDONE\033[1;0m        *"
 		@echo "**********************"
@@ -50,6 +55,7 @@ $(NAME):	$(OBJ_DIR) $(OBJ)
 clean:
 		$(RM) $(OBJ_DIR)
 		@make clean -C libft
+		@make clean -C minilibx-linux
 		@echo "**********************"
 		@echo "*    \033[1;32mCLEANED OBJS\033[1;0m    *"
 		@echo "**********************"
@@ -58,6 +64,7 @@ clean:
 fclean:
 		$(RM) $(OBJ_DIR) $(NAME)
 		@make fclean -C libft
+		@make clean -C minilibx-linux
 		@echo "**********************"
 		@echo "*     \033[1;32mCLEANED ALL\033[1;0m    *"
 		@echo "**********************"

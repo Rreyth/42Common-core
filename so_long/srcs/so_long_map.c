@@ -6,12 +6,11 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 15:48:02 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/05 22:02:37 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/12/13 19:16:10 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
-#include <stdlib.h>
 
 char	*map_read(int fd)
 {
@@ -40,7 +39,31 @@ char	*map_read(int fd)
 
 void	find_path(char **map, int x, int y)
 {
+	char	**tmp;
 
+	tmp = copy_map(map);
+	tmp[x][y] = '2';
+	while (!is_filled(tmp))
+	{
+		x = 0;
+		while (tmp[x])
+		{
+			y = 0;
+			while (tmp[x][y])
+			{
+				if (tmp[x][y] == '2')
+					fill_map(tmp, x, y);
+				y++;
+			}
+			x++;
+		}
+	}
+	if (has_collectible(tmp) || has_exit(tmp))
+	{
+		ft_free_map(tmp);
+		map_error(map);
+	}
+	ft_free_map(tmp);
 }
 
 void	check_path(char **map)
@@ -68,13 +91,24 @@ void	check_path(char **map)
 char	**make_map(char *file)
 {
 	int		fd;
+	int		i;
 	char	*str;
 	char	**map;
 
+	i = 0;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		parse_error(4);
 	str = map_read(fd);
+	while (str[i + 2])
+	{
+		if (str[i] == '\n' && str[i + 1] == '\n')
+		{
+			free(str);
+			parse_error(2);
+		}
+		i++;
+	}
 	map = ft_split(str, '\n');
 	free(str);
 	check_map(map);
