@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 20:45:52 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/18 22:59:20 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/12/19 20:26:24 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,13 @@ void	display_enemy(t_vars *vars, int i, int j)
 
 void	display_img(t_vars *vars, int i, int j)
 {
-	display_player(vars, i, j);
-	display_enemy(vars, i, j);
+	if (vars->afk_time < 45000)
+	{
+		vars->p_idle = 0;
+		vars->x_idle = 0;
+		display_player(vars, i, j);
+		display_enemy(vars, i, j);
+	}
 	if (vars->map[i][j] == '1')
 		mlx_put_image_to_window(vars->mlx, vars->win,
 			vars->wall, (j * 64), (i * 64));
@@ -67,8 +72,7 @@ void	display_img(t_vars *vars, int i, int j)
 		mlx_put_image_to_window(vars->mlx, vars->win,
 			vars->ground, (j * 64), (i * 64));
 	else if (vars->map[i][j] == 'C')
-		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->coin, (j * 64), (i * 64));
+		coin_anim(vars, i, j);
 	else if (vars->map[i][j] == 'E' && !has_collectible(vars->map))
 		mlx_put_image_to_window(vars->mlx, vars->win,
 			vars->o_exit, (j * 64), (i * 64));

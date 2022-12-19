@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 20:38:25 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/19 00:19:12 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/12/19 19:49:33 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,7 @@
 int	close_win(t_vars *vars)
 {
 	mlx_destroy_window(vars->mlx, vars->win);
-	mlx_destroy_image(vars->mlx, vars->coin);
-	mlx_destroy_image(vars->mlx, vars->wall);
-	mlx_destroy_image(vars->mlx, vars->player);
-	mlx_destroy_image(vars->mlx, vars->ground);
-	mlx_destroy_image(vars->mlx, vars->exit);
-	mlx_destroy_image(vars->mlx, vars->p_exit);
-	mlx_destroy_image(vars->mlx, vars->o_exit);
-	mlx_destroy_image(vars->mlx, vars->enemy);
-	mlx_destroy_image(vars->mlx, vars->enemy_right);
-	mlx_destroy_image(vars->mlx, vars->enemy_up);
-	mlx_destroy_image(vars->mlx, vars->enemy_down);
-	mlx_destroy_image(vars->mlx, vars->p_up);
-	mlx_destroy_image(vars->mlx, vars->p_up_exit);
-	mlx_destroy_image(vars->mlx, vars->p_down);
-	mlx_destroy_image(vars->mlx, vars->p_down_exit);
-	mlx_destroy_image(vars->mlx, vars->p_left);
-	mlx_destroy_image(vars->mlx, vars->p_left_exit);
-	mlx_destroy_image(vars->mlx, vars->game_sw);
-	mlx_destroy_image(vars->mlx, vars->game_so);
+	img_destroy(vars);
 	mlx_destroy_display(vars->mlx);
 	free(vars->mlx);
 	ft_free_map(vars->map);
@@ -46,6 +28,10 @@ int	key_hook(int keycode, t_vars *vars)
 		close_win(vars);
 	if (vars->end == 0)
 	{
+		if (keycode == XK_Up || keycode == XK_w || keycode == XK_Down
+			|| keycode == XK_s || keycode == XK_Left || keycode == XK_a
+			|| keycode == XK_Right || keycode == XK_d)
+			vars->afk_time = 0;
 		if (keycode == XK_Up || keycode == XK_w)
 			p_move_up(vars);
 		if (keycode == XK_Down || keycode == XK_s)
@@ -55,7 +41,6 @@ int	key_hook(int keycode, t_vars *vars)
 		if (keycode == XK_Right || keycode == XK_d)
 			p_move_right(vars);
 	}
-	display_map(vars);
 	return (0);
 }
 
@@ -104,28 +89,12 @@ void	game_init(t_vars *vars, char **map)
 	vars->move_count = 0;
 	vars->mlx = mlx_init();
 	vars->win = mlx_new_window(vars->mlx, width, height, "so_long");
-	vars->wall = mlx_xpm_file_to_image(vars->mlx, W_PATH, &width, &height);
-	vars->ground = mlx_xpm_file_to_image(vars->mlx, G_PATH, &width, &height);
-	vars->player = mlx_xpm_file_to_image(vars->mlx, P_PATH, &width, &height);
-	vars->coin = mlx_xpm_file_to_image(vars->mlx, C_PATH, &width, &height);
-	vars->exit = mlx_xpm_file_to_image(vars->mlx, E_PATH, &width, &height);
-	vars->p_exit = mlx_xpm_file_to_image(vars->mlx, PE_PATH, &width, &height);
-	vars->o_exit = mlx_xpm_file_to_image(vars->mlx, OE_PATH, &width, &height);
-	vars->enemy = mlx_xpm_file_to_image(vars->mlx, X_PATH, &width, &height);	
-	vars->enemy_right = mlx_xpm_file_to_image(vars->mlx, XR_PATH, &width, &height);
-	vars->enemy_up = mlx_xpm_file_to_image(vars->mlx, XU_PATH, &width, &height);
-	vars->enemy_down = mlx_xpm_file_to_image(vars->mlx, XD_PATH, &width, &height);
-	vars->p_up = mlx_xpm_file_to_image(vars->mlx, PU_PATH, &width, &height);
-	vars->p_up_exit = mlx_xpm_file_to_image(vars->mlx, PUE_PATH, &width, &height);
-	vars->p_down = mlx_xpm_file_to_image(vars->mlx, PD_PATH, &width, &height);
-	vars->p_down_exit = mlx_xpm_file_to_image(vars->mlx, PDE_PATH, &width, &height);
-	vars->p_left = mlx_xpm_file_to_image(vars->mlx, PL_PATH, &width, &height);
-	vars->p_left_exit = mlx_xpm_file_to_image(vars->mlx, PLE_PATH, &width, &height);
-	vars->game_sw = mlx_xpm_file_to_image(vars->mlx, S_WIN, &width, &height);
-	vars->game_w = mlx_xpm_file_to_image(vars->mlx, WIN, &width, &height);
-	vars->game_so = mlx_xpm_file_to_image(vars->mlx, S_OVER, &width, &height);
-	vars->game_o = mlx_xpm_file_to_image(vars->mlx, OVER, &width, &height);
+	img_init(vars, width, height);
 	vars->end = 0;
 	find_player(vars);
 	vars->enemy_timer = 4;
+	vars->afk_time = 0;
+	vars->p_idle = 0;
+	vars->x_idle = 0;
+	vars->c_anim = 0;
 }

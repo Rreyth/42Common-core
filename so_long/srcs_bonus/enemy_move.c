@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 17:31:03 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/18 21:43:15 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/12/19 20:39:23 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,15 +84,17 @@ void	enemy_move(t_vars *vars, int i, int j, int *down)
 	diff_x = vars->x - i;
 	diff_y = vars->y - j;
 	vars->enemy_timer = 4;
-	*down = 0;
+	if (down[0] == i - 1 && down[1] == j)
+		return ;
 	if (diff_x < 0 && ((diff_y <= 0 && diff_x < diff_y)
 			|| (diff_y >= 0 && diff_y < -diff_x)))
 		e_move_up(vars, i, j);
 	else if (diff_x > 0 && ((diff_y <= 0 && diff_y > -diff_x)
 			|| (diff_y >= 0 && diff_y < diff_x)))
 	{
+		down[0] = i;
+		down[1] = j;
 		e_move_down(vars, i, j);
-		*down = j;
 	}
 	else if (diff_y < 0)
 		e_move_left(vars, i, j);

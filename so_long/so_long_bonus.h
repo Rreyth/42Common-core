@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:21:40 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/18 23:00:46 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/12/19 20:36:08 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@
 # define WIN "textures/win_screen.xpm"
 # define S_OVER "textures/small_game_over.xpm"
 # define OVER "textures/game_over.xpm"
+# define P_AFK "textures/player_afk.xpm"
+# define P_AFK1 "textures/player_afk1.xpm"
+# define P_AFK2 "textures/player_afk2.xpm"
+# define X_AFK "textures/enemy_afk.xpm"
+# define X_AFK1 "textures/enemy_afk1.xpm"
+# define X_AFK2 "textures/enemy_afk2.xpm"
+# define C_IDLE "textures/player_afk.xpm"
+# define C_IDLE1 "textures/player_afk1.xpm"
+# define C_IDLE2 "textures/player_afk2.xpm"
 
 typedef struct s_vars {
 	void	*mlx;
@@ -65,11 +74,24 @@ typedef struct s_vars {
 	void	*game_w;
 	void	*game_so;
 	void	*game_o;
+	void	*p_afk;
+	void	*p_afk1;
+	void	*p_afk2;
+	void	*x_afk;
+	void	*x_afk1;
+	void	*x_afk2;
+	void	*c_idle;
+	void	*c_idle1;
+	void	*c_idle2;
 	int		x;
 	int		y;
 	int		move_count;
 	int		enemy_timer;
 	int		end;
+	int		afk_time;
+	int		p_idle;
+	int		x_idle;
+	int		c_anim;
 }				t_vars;
 
 /*---------------------------------Parsing------------------------------------*/
@@ -110,5 +132,13 @@ void	display_end(t_vars *vars);
 void	end_pos(t_vars *vars, int *x, int *y);
 
 char	*make_screen_count(int count);
+
+void	display_anim(t_vars *vars);
+
+void	img_init(t_vars *vars, int width, int height);
+
+void	img_destroy(t_vars *vars);
+
+void	coin_anim(t_vars *vars, int x, int y);
 
 #endif 

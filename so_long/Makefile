@@ -6,7 +6,7 @@
 #    By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/03 15:21:23 by tdhaussy          #+#    #+#              #
-#    Updated: 2022/12/17 19:21:17 by tdhaussy         ###   ########.fr        #
+#    Updated: 2022/12/19 19:31:25 by tdhaussy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,10 @@ SRC_BONUS =	srcs_bonus/so_long.c \
 		srcs_bonus/so_long_utils_map.c \
 		srcs_bonus/game_utils.c \
 		srcs_bonus/game_utils2.c \
+		srcs_bonus/img_init.c \
+		srcs_bonus/img_destroy.c \
 		srcs_bonus/game_display.c \
+		srcs_bonus/game_anim.c \
 		srcs_bonus/player_move.c \
 		srcs_bonus/enemy_move.c
 

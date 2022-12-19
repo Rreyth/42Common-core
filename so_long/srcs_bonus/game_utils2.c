@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 19:17:55 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/18 23:31:29 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/12/19 20:36:56 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,24 +23,25 @@ void	find_enemy(t_vars *vars)
 {
 	int	i;
 	int	j;
-	int	down;
+	int	down[2];
 
 	i = 1;
+	down[0] = 0;
+	down[1] = 0;
 	while (vars->map[i])
 	{
 		j = 1;
 		while (vars->map[i][j])
 		{
-			if (vars->map[i][j] == 'X' || vars->map[i][j] == '9'
-					|| vars->map[i][j] == '8' || vars->map[i][j] == '7')
+			if (is_enemy(vars->map[i][j]))
 			{
-				if (vars->map[i][j + 1] == '0' && j != down)
+				if (vars->map[i][j + 1] == '0')
 				{
-					enemy_move(vars, i, j, &down);
+					enemy_move(vars, i, j, down);
 					j++;
 				}
-				else if (j != down)
-					enemy_move(vars, i, j, &down);
+				else
+					enemy_move(vars, i, j, down);
 			}
 			j++;
 		}
