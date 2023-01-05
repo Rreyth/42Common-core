@@ -1,0 +1,8 @@
+left ok
+right ok
+down = default
+up = reverse default
+
+anim : player - bulles avec coin 
+	 enemy - bulles avec player
+	 coin ?????
