@@ -6,13 +6,15 @@
 #    By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/03 15:21:23 by tdhaussy          #+#    #+#              #
-#    Updated: 2022/12/19 19:31:25 by tdhaussy         ###   ########.fr        #
+#    Updated: 2023/01/10 22:40:33 by tdhaussy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = clang
 
 NAME = so_long
+
+BONUS = so_long_bonus
 
 SRC =	srcs/so_long.c \
 		srcs/so_long_check.c \
@@ -43,6 +45,8 @@ SRC_BONUS =	srcs_bonus/so_long.c \
 
 RM = rm -rf
 
+MAKEFLAGS =		--no-print-directory
+
 OBJ =	$(SRC:srcs/%.c=objs/%.o)
 
 BONUS_OBJ =	$(SRC_BONUS:srcs_bonus/%.c=objs_bonus/%.o)
@@ -54,6 +58,8 @@ BONUS_OBJ_DIR = objs_bonus
 CFLAGS = -Wall -Wextra -Werror -g3
 
 all:	$(NAME)
+
+bonus:	$(BONUS)
 
 objs/%.o: srcs/%.c
 	$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $^ -o $(<:srcs/%.c=objs/%.o)
@@ -78,13 +84,13 @@ $(NAME):	$(OBJ_DIR) $(OBJ)
 		@echo "*        \033[1;32mDONE\033[1;0m        *"
 		@echo "**********************"
 
-bonus:	$(BONUS_OBJ_DIR) $(BONUS_OBJ)
+$(BONUS):	$(BONUS_OBJ_DIR) $(BONUS_OBJ)
 		@echo "**********************"
 		@echo "*     \033[1;33mCOMPILING\033[1;0m      *"
 		@echo "**********************\n"
 		@make -C libft
 		@make -C minilibx-linux
-		$(CC) $(CFLAGS) $(BONUS_OBJ) libft/libft.a minilibx-linux/libmlx.a minilibx-linux/libmlx_Linux.a -L/usr/lib -lXext -lX11 -lm -lz -o $(NAME)
+		$(CC) $(CFLAGS) $(BONUS_OBJ) libft/libft.a minilibx-linux/libmlx.a minilibx-linux/libmlx_Linux.a -L/usr/lib -lXext -lX11 -lm -lz -o $@
 		@echo "**********************"
 		@echo "*        \033[1;32mDONE\033[1;0m        *"
 		@echo "**********************"
@@ -105,7 +111,5 @@ fclean:
 		@echo "*     \033[1;32mCLEANED ALL\033[1;0m    *"
 		@echo "**********************"
 
-
 re:		fclean	all
 .PHONY:	all clean fclean re bonus
-.SILENT:

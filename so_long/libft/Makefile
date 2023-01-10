@@ -6,7 +6,7 @@
 #    By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 14:30:49 by tdhaussy          #+#    #+#              #
-#    Updated: 2022/12/05 14:42:07 by tdhaussy         ###   ########.fr        #
+#    Updated: 2023/01/10 22:40:49 by tdhaussy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,4 +82,3 @@ fclean: clean
 
 re:		fclean all
 .PHONY: all clean fclean re
-.SILENT:
