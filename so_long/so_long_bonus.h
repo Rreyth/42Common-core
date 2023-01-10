@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:21:40 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/19 20:36:08 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/10 01:15:17 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,11 @@
 # define PE_PATH "textures/player_exit.xpm"
 # define PU_PATH "textures/player_up.xpm"
 # define PUE_PATH "textures/player_up_exit.xpm"
-# define PD_PATH "textures/player_down.xpm"
-# define PDE_PATH "textures/player_down_exit.xpm"
 # define PL_PATH "textures/player_left.xpm"
 # define PLE_PATH "textures/player_left_exit.xpm"
 # define OE_PATH "textures/open_exit.xpm"
 # define X_PATH "textures/enemy.xpm"
 # define XU_PATH "textures/enemy_up.xpm"
-# define XD_PATH "textures/enemy_down.xpm"
 # define XR_PATH "textures/enemy_right.xpm"
 # define S_WIN "textures/small_win_screen.xpm"
 # define WIN "textures/win_screen.xpm"
@@ -45,14 +42,8 @@
 # define X_AFK "textures/enemy_afk.xpm"
 # define X_AFK1 "textures/enemy_afk1.xpm"
 # define X_AFK2 "textures/enemy_afk2.xpm"
-# define C_IDLE "textures/player_afk.xpm"
-# define C_IDLE1 "textures/player_afk1.xpm"
-# define C_IDLE2 "textures/player_afk2.xpm"
 
-typedef struct s_vars {
-	void	*mlx;
-	void	*win;
-	char	**map;
+typedef struct s_sprite {
 	void	*coin;
 	void	*wall;
 	void	*player;
@@ -62,14 +53,11 @@ typedef struct s_vars {
 	void	*p_exit;
 	void	*p_up;
 	void	*p_up_exit;
-	void	*p_down;
-	void	*p_down_exit;
 	void	*p_left;
 	void	*p_left_exit;
 	void	*enemy;
 	void	*enemy_right;
 	void	*enemy_up;
-	void	*enemy_down;
 	void	*game_sw;
 	void	*game_w;
 	void	*game_so;
@@ -80,65 +68,57 @@ typedef struct s_vars {
 	void	*x_afk;
 	void	*x_afk1;
 	void	*x_afk2;
-	void	*c_idle;
-	void	*c_idle1;
-	void	*c_idle2;
-	int		x;
-	int		y;
-	int		move_count;
-	int		enemy_timer;
-	int		end;
-	int		afk_time;
-	int		p_idle;
-	int		x_idle;
-	int		c_anim;
+}				t_sprite;
+
+typedef struct s_vars {
+	t_sprite	sprite;
+	void		*mlx;
+	void		*win;
+	char		**map;
+	int			x;
+	int			y;
+	int			move_count;
+	int			enemy_timer;
+	int			end;
+	int			afk_time;
+	int			idle;
 }				t_vars;
 
 /*---------------------------------Parsing------------------------------------*/
 void	check_args(int ac, char *file);
-char	**make_map(char *file);
 void	check_map(char **map);
 void	parse_error(int code);
 void	ft_free_map(char **map);
 void	map_error(char **map);
-char	*so_long_join(char *s1, char *s2);
-int		has_collectible(char **map);
-int		has_player(char **map);
-int		has_exit(char **map);
-char	**copy_map(char **map);
 void	fill_map(char **map, int x, int y);
+char	**make_map(char *file);
+char	**copy_map(char **map);
+char	*so_long_join(char *s1, char *s2);
 int		is_filled(char **map);
+int		has_exit(char **map);
+int		has_player(char **map);
+int		has_collectible(char **map);
 
 /*---------------------------------GAME---------------------------------------*/
 void	game_init(t_vars *vars, char **map);
-int		key_hook(int keycode, t_vars *vars);
-int		close_win(t_vars *vars);
 void	display_map(t_vars *vars);
-
 void	p_move_up(t_vars *vars);
 void	p_move_down(t_vars *vars);
 void	p_move_left(t_vars *vars);
 void	p_move_right(t_vars *vars);
-
 void	enemy_move(t_vars *vars, int i, int j, int *down);
+void	find_enemy(t_vars *vars);
+void	end_game(t_vars *vars, int x, int y, int move);
+void	display_end(t_vars *vars);
+void	end_pos(t_vars *vars, int *x, int *y);
+void	display_anim(t_vars *vars);
+void	img_init(t_vars *vars, int width, int height);
+void	img_destroy(t_vars *vars);
+void	move_exit_enemy(t_vars *vars, int i, int j, char direction);
+char	*make_screen_count(int count);
+int		key_hook(int keycode, t_vars *vars);
+int		close_win(t_vars *vars);
 int		count_line(char **map);
 int		is_enemy(char c);
-void	find_enemy(t_vars *vars);
-
-void	end_game(t_vars *vars, int x, int y, int move);
-
-void	display_end(t_vars *vars);
-
-void	end_pos(t_vars *vars, int *x, int *y);
-
-char	*make_screen_count(int count);
-
-void	display_anim(t_vars *vars);
-
-void	img_init(t_vars *vars, int width, int height);
-
-void	img_destroy(t_vars *vars);
-
-void	coin_anim(t_vars *vars, int x, int y);
 
 #endif 

@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 19:17:55 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/19 20:36:56 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/10 01:09:30 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_enemy(char c)
 {
-	if (c == 'X' || c == '9' || c == '8' || c == '7')
+	if (c == 'X' || c == '9' || c == '8')
 		return (1);
 	return (0);
 }
@@ -25,13 +25,13 @@ void	find_enemy(t_vars *vars)
 	int	j;
 	int	down[2];
 
-	i = 1;
+	i = 0;
 	down[0] = 0;
 	down[1] = 0;
-	while (vars->map[i])
+	while (vars->map[++i])
 	{
-		j = 1;
-		while (vars->map[i][j])
+		j = 0;
+		while (vars->map[i][++j])
 		{
 			if (is_enemy(vars->map[i][j]))
 			{
@@ -43,9 +43,7 @@ void	find_enemy(t_vars *vars)
 				else
 					enemy_move(vars, i, j, down);
 			}
-			j++;
 		}
-		i++;
 	}
 }
 
@@ -85,5 +83,20 @@ void	end_pos(t_vars *vars, int *x, int *y)
 			*y = ((nb_line * 64) / 2) - (192 / 2);
 		else
 			*y = ((nb_line * 64) / 2) - 64;
+	}
+}
+
+void	move_exit_enemy(t_vars *vars, int i, int j, char direction)
+{
+	if (!has_collectible(vars->map)
+		|| is_enemy(vars->map[i][j]))
+		end_game(vars, i, j, 1);
+	else if (has_collectible(vars->map))
+	{
+		vars->map[i][j] = direction;
+		vars->map[vars->x][vars->y] = '0';
+		vars->move_count++;
+		vars->enemy_timer--;
+		ft_printf("number of movements : %d\n", vars->move_count);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 20:45:52 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/19 20:26:24 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/10 00:31:15 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,69 +16,60 @@ void	display_player(t_vars *vars, int i, int j)
 {
 	if (vars->map[i][j] == 'P')
 		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->player, (j * 64), (i * 64));
+			vars->sprite.player, (j * 64), (i * 64));
 	else if (vars->map[i][j] == '2')
 		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->p_exit, (j * 64), (i * 64));
+			vars->sprite.p_exit, (j * 64), (i * 64));
 	else if (vars->map[i][j] == 'U')
 		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->p_up, (j * 64), (i * 64));
+			vars->sprite.p_up, (j * 64), (i * 64));
 	else if (vars->map[i][j] == '3')
 		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->p_up_exit, (j * 64), (i * 64));
-	else if (vars->map[i][j] == 'D')
-		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->p_down, (j * 64), (i * 64));
-	else if (vars->map[i][j] == '4')
-		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->p_down_exit, (j * 64), (i * 64));
+			vars->sprite.p_up_exit, (j * 64), (i * 64));
 	else if (vars->map[i][j] == 'L')
 		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->p_left, (j * 64), (i * 64));
+			vars->sprite.p_left, (j * 64), (i * 64));
 	else if (vars->map[i][j] == '5')
 		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->p_left_exit, (j * 64), (i * 64));
+			vars->sprite.p_left_exit, (j * 64), (i * 64));
 }
 
 void	display_enemy(t_vars *vars, int i, int j)
 {
 	if (vars->map[i][j] == 'X')
 		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->enemy, (j * 64), (i * 64));
+			vars->sprite.enemy, (j * 64), (i * 64));
 	if (vars->map[i][j] == '9')
 		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->enemy_right, (j * 64), (i * 64));
+			vars->sprite.enemy_right, (j * 64), (i * 64));
 	if (vars->map[i][j] == '8')
 		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->enemy_up, (j * 64), (i * 64));
-	if (vars->map[i][j] == '7')
-		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->enemy_down, (j * 64), (i * 64));
+			vars->sprite.enemy_up, (j * 64), (i * 64));
 }
 
 void	display_img(t_vars *vars, int i, int j)
 {
 	if (vars->afk_time < 45000)
 	{
-		vars->p_idle = 0;
-		vars->x_idle = 0;
+		vars->idle = 0;
 		display_player(vars, i, j);
 		display_enemy(vars, i, j);
 	}
 	if (vars->map[i][j] == '1')
 		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->wall, (j * 64), (i * 64));
+			vars->sprite.wall, (j * 64), (i * 64));
 	else if (vars->map[i][j] == '0')
 		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->ground, (j * 64), (i * 64));
+			vars->sprite.ground, (j * 64), (i * 64));
 	else if (vars->map[i][j] == 'C')
-		coin_anim(vars, i, j);
+		mlx_put_image_to_window(vars->mlx, vars->win,
+			vars->sprite.coin, (j * 64), (i * 64));
 	else if (vars->map[i][j] == 'E' && !has_collectible(vars->map))
 		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->o_exit, (j * 64), (i * 64));
+			vars->sprite.o_exit, (j * 64), (i * 64));
 	else if (vars->map[i][j] == 'E')
 		mlx_put_image_to_window(vars->mlx, vars->win,
-			vars->exit, (j * 64), (i * 64));
+			vars->sprite.exit, (j * 64), (i * 64));
 }
 
 void	display_map(t_vars *vars)
@@ -117,15 +108,19 @@ void	display_end(t_vars *vars)
 	if (vars->end == 1)
 	{
 		if (ft_strlen(vars->map[0]) <= 10)
-			mlx_put_image_to_window(vars->mlx, vars->win, vars->game_sw, x, y);
+			mlx_put_image_to_window(vars->mlx, vars->win,
+				vars->sprite.game_sw, x, y);
 		else
-			mlx_put_image_to_window(vars->mlx, vars->win, vars->game_w, x, y);
+			mlx_put_image_to_window(vars->mlx, vars->win,
+				vars->sprite.game_w, x, y);
 	}
 	if (vars->end == 2)
 	{
 		if (ft_strlen(vars->map[0]) <= 10)
-			mlx_put_image_to_window(vars->mlx, vars->win, vars->game_so, x, y);
+			mlx_put_image_to_window(vars->mlx, vars->win,
+				vars->sprite.game_so, x, y);
 		else
-			mlx_put_image_to_window(vars->mlx, vars->win, vars->game_o, x, y);
+			mlx_put_image_to_window(vars->mlx, vars->win,
+				vars->sprite.game_o, x, y);
 	}
 }

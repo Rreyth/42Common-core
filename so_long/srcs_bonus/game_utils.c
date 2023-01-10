@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 20:38:25 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/19 19:49:33 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/10 00:24:27 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,5 @@ void	game_init(t_vars *vars, char **map)
 	find_player(vars);
 	vars->enemy_timer = 4;
 	vars->afk_time = 0;
-	vars->p_idle = 0;
-	vars->x_idle = 0;
-	vars->c_anim = 0;
+	vars->idle = 0;
 }

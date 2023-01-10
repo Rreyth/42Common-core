@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:21:40 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/13 22:54:26 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/10 01:20:39 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@
 # define PE_PATH "textures/player_exit.xpm"
 # define OE_PATH "textures/open_exit.xpm"
 
-typedef struct s_vars {
-	void	*mlx;
-	void	*win;
-	char	**map;
+typedef struct s_sprite {
 	void	*coin;
 	void	*wall;
 	void	*player;
@@ -37,35 +34,41 @@ typedef struct s_vars {
 	void	*exit;
 	void	*o_exit;
 	void	*p_exit;
-	int		x;
-	int		y;
-	int		move_count;
+}				t_sprite;
+
+typedef struct s_vars {
+	t_sprite	sprite;
+	void		*mlx;
+	void		*win;
+	char		**map;
+	int			x;
+	int			y;
+	int			move_count;
 }				t_vars;
 
 /*---------------------------------Parsing------------------------------------*/
 void	check_args(int ac, char *file);
-char	**make_map(char *file);
 void	check_map(char **map);
 void	parse_error(int code);
 void	ft_free_map(char **map);
 void	map_error(char **map);
+void	fill_map(char **map, int x, int y);
+char	**make_map(char *file);
 char	*so_long_join(char *s1, char *s2);
+char	**copy_map(char **map);
 int		has_collectible(char **map);
 int		has_player(char **map);
 int		has_exit(char **map);
-char	**copy_map(char **map);
-void	fill_map(char **map, int x, int y);
 int		is_filled(char **map);
 
 /*---------------------------------GAME---------------------------------------*/
 void	game_init(t_vars *vars, char **map);
-int		key_hook(int keycode, t_vars *vars);
-int		close_win(t_vars *vars);
 void	display_map(t_vars *vars);
-
 void	p_move_up(t_vars *vars);
 void	p_move_down(t_vars *vars);
 void	p_move_left(t_vars *vars);
 void	p_move_right(t_vars *vars);
+int		close_win(t_vars *vars);
+int		key_hook(int keycode, t_vars *vars);
 
 #endif 

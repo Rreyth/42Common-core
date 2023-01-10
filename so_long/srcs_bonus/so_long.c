@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:19:05 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/19 19:50:33 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/09 23:26:31 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,9 @@ int	loop_fct(t_vars *vars)
 	if (vars->end == 0)
 	{
 		if (ft_strlen(vars->map[0]) > 15)
-		{
 			vars->afk_time += ft_strlen(vars->map[0]);
-			vars->c_anim += ft_strlen(vars->map[0]);
-		}
 		else
-		{
 			vars->afk_time += (ft_strlen(vars->map[0]) / 2);
-			vars->c_anim += (ft_strlen(vars->map[0]) / 2);
-		}
 	}
 	display_map(vars);
 	display_anim(vars);

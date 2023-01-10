@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/17 17:31:03 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/19 20:39:23 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/09 23:04:44 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	e_move_down(t_vars *vars, int x, int y)
 {
 	if (vars->map[x + 1][y] == '0')
 	{
-		vars->map[x + 1][y] = '7';
+		vars->map[x + 1][y] = 'X';
 		vars->map[x][y] = '0';
 	}
 	if (vars->map[x + 1][y] == 'P' || vars->map[x + 1][y] == 'U'
-		|| vars->map[x + 1][y] == 'D' || vars->map[x + 1][y] == 'L')
+		|| vars->map[x + 1][y] == 'L')
 	{
-		vars->map[x + 1][y] = '7';
+		vars->map[x + 1][y] = 'X';
 		vars->map[x][y] = '0';
 		end_game(vars, x + 1, y, 0);
 	}
@@ -52,7 +52,7 @@ void	e_move_left(t_vars *vars, int x, int y)
 		vars->map[x][y] = '0';
 	}
 	if (vars->map[x][y - 1] == 'P' || vars->map[x][y - 1] == 'U'
-		|| vars->map[x][y - 1] == 'D' || vars->map[x][y - 1] == 'L')
+		|| vars->map[x][y - 1] == 'L')
 	{
 		vars->map[x][y - 1] = 'X';
 		vars->map[x][y] = '0';
@@ -68,7 +68,7 @@ void	e_move_right(t_vars *vars, int x, int y)
 		vars->map[x][y] = '0';
 	}
 	if (vars->map[x][y + 1] == 'P' || vars->map[x][y + 1] == 'U'
-		|| vars->map[x][y + 1] == 'D' || vars->map[x][y + 1] == 'L')
+		|| vars->map[x][y + 1] == 'L')
 	{
 		vars->map[x][y + 1] = '9';
 		vars->map[x][y] = '0';
