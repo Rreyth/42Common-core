@@ -6,7 +6,7 @@
 #    By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/03 15:21:23 by tdhaussy          #+#    #+#              #
-#    Updated: 2023/01/10 23:26:45 by tdhaussy         ###   ########.fr        #
+#    Updated: 2023/01/15 09:31:33 by tdhaussy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ CC = clang
 
 NAME = pipex
 
-SRC =	srcs/pipex.c
+SRC =	srcs/pipex.c \
+		srcs/pipex_utils.c
 
 RM = rm -rf
 

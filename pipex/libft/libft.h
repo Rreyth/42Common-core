@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:45:19 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/05 14:08:01 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/15 11:39:08 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 /*---------------------------------FT_PRINTF----------------------------------*/
 
-int		ft_printf(const char *s, ...);
-int		ft_putnbr_base(long n, char *base);
-int		ft_putptr_pf(unsigned long n);
-int		ft_putstr_pf(char *s);
-int		ft_putchar_pf(char c);
+int		ft_printf_fd(int fd, const char *s, ...);
+int		ft_putnbr_base_fd(long n, char *base, int fd);
+int		ft_putptr_pf_fd(unsigned long n, int fd);
+int		ft_putstr_pf_fd(char *s, int fd);
+int		ft_putchar_pf_fd(char c, int fd);
 
 /*---------------------------------GET_NEXT_LINE------------------------------*/
 

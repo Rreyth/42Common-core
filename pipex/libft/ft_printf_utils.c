@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 02:29:19 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/12/05 14:00:04 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/15 11:45:16 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_baselen(char *base)
 	return (i);
 }
 
-int	ft_putnbr_base(long n, char *base)
+int	ft_putnbr_base_fd(long n, char *base, int fd)
 {
 	int	base_lengh;
 	int	last_nb;
@@ -34,7 +34,7 @@ int	ft_putnbr_base(long n, char *base)
 		return (count);
 	if (n < 0)
 	{
-		write(1, "-", 1);
+		write(fd, "-", 1);
 		count++;
 	}
 	last_nb = n % base_lengh;
@@ -42,15 +42,15 @@ int	ft_putnbr_base(long n, char *base)
 	if (n < 0)
 		n *= -1;
 	if (n > 0)
-		count += ft_putnbr_base(n, base);
+		count += ft_putnbr_base_fd(n, base, fd);
 	if (last_nb < 0)
 		last_nb *= -1;
-	write(1, &base[last_nb], 1);
+	write(fd, &base[last_nb], 1);
 	count++;
 	return (count);
 }
 
-int	ft_putptr_pf(unsigned long n)
+int	ft_putptr_pf_fd(unsigned long n, int fd)
 {
 	int		last_nb;
 	int		count;
@@ -61,13 +61,13 @@ int	ft_putptr_pf(unsigned long n)
 	last_nb = n % 16;
 	n = n / 16;
 	if (n > 0)
-		count += ft_putptr_pf(n);
-	write(1, &base[last_nb], 1);
+		count += ft_putptr_pf_fd(n, fd);
+	write(fd, &base[last_nb], 1);
 	count++;
 	return (count);
 }
 
-int	ft_putstr_pf(char *s)
+int	ft_putstr_pf_fd(char *s, int fd)
 {
 	int	i;
 
@@ -76,20 +76,20 @@ int	ft_putstr_pf(char *s)
 	{
 		while (s[i])
 		{
-			write(1, &s[i], 1);
+			write(fd, &s[i], 1);
 			i++;
 		}
 	}
 	else
 	{
-		write(1, "(null)", 6);
+		write(fd, "(null)", 6);
 		i = 6;
 	}
 	return (i);
 }
 
-int	ft_putchar_pf(char c)
+int	ft_putchar_pf_fd(char c, int fd)
 {
-	write(1, &c, 1);
+	write(fd, &c, 1);
 	return (1);
 }
