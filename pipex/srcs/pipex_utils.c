@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 09:01:40 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/15 11:58:40 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/18 19:09:54 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,28 @@ char	*cmd_join(char *env, char *cmd)
 	return (str);
 }
 
-void	ft_free_tab(char **tab)
+int	search_slash(char *str)
 {
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	while (str[i])
 	{
-		free(tab[i]);
+		if (str[i] == '/')
+			return (1);
 		i++;
 	}
-	free(tab);
+	return (0);
+}
+
+char	*make_path(char	*str)
+{
+	char	*path;
+
+	path = ft_calloc(ft_strlen(str) + 1, sizeof(char));
+	if (path)
+		ft_strlcpy(path, str, ft_strlen(str) + 1);
+	return (path);
 }
 
 char	*find_path(char *cmd, char **envp)
@@ -74,18 +85,15 @@ char	*find_path(char *cmd, char **envp)
 
 	path = NULL;
 	i = find_env(envp);
+	if ((cmd[0] == '.' || search_slash(cmd)) && !access(cmd, X_OK))
+		path = make_path(cmd);
 	tab = ft_split(envp[i], ':');
 	i = 0;
-	while (tab[i])
+	while (tab[i] && !path)
 	{
 		tab[i] = cmd_join(tab[i], cmd);
 		if (!access(tab[i], X_OK))
-		{
-			path = ft_calloc(ft_strlen(tab[i]) + 1, sizeof(char));
-			if (path)
-				ft_strlcpy(path, tab[i], ft_strlen(tab[i]) + 1);
-			break ;
-		}
+			path = make_path(tab[i]);
 		i++;
 	}
 	ft_free_tab(tab);

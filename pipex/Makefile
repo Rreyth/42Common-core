@@ -6,7 +6,7 @@
 #    By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/03 15:21:23 by tdhaussy          #+#    #+#              #
-#    Updated: 2023/01/15 09:31:33 by tdhaussy         ###   ########.fr        #
+#    Updated: 2023/01/18 21:56:05 by tdhaussy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,18 @@ CC = clang
 NAME = pipex
 
 SRC =	srcs/pipex.c \
-		srcs/pipex_utils.c
+		srcs/pipex_utils.c \
+		srcs/pipex_utils2.c
+
+SRC_BONUS = srcs/maintest.c
 
 RM = rm -rf
 
 MAKEFLAGS =		--no-print-directory
+
+ifdef	BONUS
+		SRC = $(SRC_BONUS)
+endif
 
 OBJ =	$(SRC:srcs/%.c=objs/%.o)
 
@@ -44,6 +51,9 @@ $(NAME):	$(OBJ_DIR) $(OBJ)
 		@echo "**********************"
 		@echo "*        \033[1;32mDONE\033[1;0m        *"
 		@echo "**********************"
+
+bonus:
+		@make BONUS=true
 
 clean:
 		$(RM) $(OBJ_DIR)
