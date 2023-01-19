@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 23:25:41 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/19 22:19:41 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/19 22:31:43 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "../pipex_bonus.h"
 
 void	ft_free_tab(char **tab)
 {
@@ -54,7 +54,7 @@ int	exec_first_cmd(t_pipex *pipex, char **envp)
 	return (status >> 8);
 }
 
-int	exec_sec_cmd(t_pipex *pipex, char **envp)
+int	exec_last_cmd(t_pipex *pipex, char **envp, int *fd_pipe)
 {
 	pid_t	pid;
 	int		status;
@@ -63,9 +63,9 @@ int	exec_sec_cmd(t_pipex *pipex, char **envp)
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(pipex->fd_pipe[0], 0);
-		close(pipex->fd_pipe[1]);
-		close(pipex->fd_pipe[0]);
+		dup2(fd_pipe[0], 0);
+		close(fd_pipe[1]);
+		close(fd_pipe[0]);
 		dup2(pipex->fd, 1);
 		close(pipex->fd);
 		if (pipex->path)
@@ -102,7 +102,7 @@ int	launch_cmd(int ac, char **av, char **envp, t_pipex *pipex)
 	status = test_open(av[ac - 1], 1, pipex);
 	close(pipex->fd_pipe[1]);
 	if (pipex->fd != -1)
-		status = exec_sec_cmd(pipex, envp);
+		status = exec_last_cmd(pipex, envp, pipex->fd_pipe);
 	close(pipex->fd_pipe[0]);
 	if (pipex->fd > 2)
 		close(pipex->fd);
@@ -116,11 +116,15 @@ int	main(int argc, char **argv, char **envp)
 	t_pipex	pipex;
 	int		status;
 
-	if (argc != 5)
-	{
+	status = 0;
+	pipex.here_doc = is_here_doc(argv[1]);
+	if (pipex.here_doc && argc >= 6)
+		status = launch_heredoc(argc, argv, envp, &pipex);
+	else if (argc == 5 && !pipex.here_doc)
+		status = launch_cmd(argc, argv, envp, &pipex);
+	else if (argc > 5 && !pipex.here_doc)
+		status = multi_pipe(argc, argv, envp, &pipex);
+	else
 		ft_printf_fd(2, "Invalid number of arguments\n");
-		return (0);
-	}
-	status = launch_cmd(argc, argv, envp, &pipex);
 	return (status);
 }

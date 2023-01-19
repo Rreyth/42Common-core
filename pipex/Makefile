@@ -6,7 +6,7 @@
 #    By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/03 15:21:23 by tdhaussy          #+#    #+#              #
-#    Updated: 2023/01/18 21:56:05 by tdhaussy         ###   ########.fr        #
+#    Updated: 2023/01/19 20:29:00 by tdhaussy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,11 @@ SRC =	srcs/pipex.c \
 		srcs/pipex_utils.c \
 		srcs/pipex_utils2.c
 
-SRC_BONUS = srcs/maintest.c
+SRC_BONUS = srcs/pipex_bonus.c \
+			srcs/pipex_utils_bonus.c \
+			srcs/pipex_utils2_bonus.c \
+			srcs/multi_pipe_bonus.c \
+			srcs/heredoc_bonus.c
 
 RM = rm -rf
 
@@ -70,4 +74,5 @@ fclean:
 		@echo "**********************"
 
 re:		fclean	all
+reb:	fclean	bonus
 .PHONY:	all clean fclean re
