@@ -117,7 +117,9 @@ int	main(int argc, char **argv, char **envp)
 	int		status;
 
 	status = 0;
-	pipex.here_doc = is_here_doc(argv[1]);
+	pipex.here_doc = 0;
+	if (argc >= 5)
+		pipex.here_doc = is_here_doc(argv[1]);
 	if (pipex.here_doc && argc >= 6)
 		status = launch_heredoc(argc, argv, envp, &pipex);
 	else if (argc == 5 && !pipex.here_doc)

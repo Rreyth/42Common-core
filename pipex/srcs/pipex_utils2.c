@@ -25,7 +25,9 @@ int	test_open(char *file, int phase, t_pipex *pipex)
 	if (phase == 1)
 	{
 		pipex->fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		if (pipex->fd == -1 && access(file, W_OK))
+		if (!file || file[0] == '\0')
+			ft_printf_fd(2, "no such file or directory:\n");
+		else if (pipex->fd == -1 && access(file, W_OK))
 			ft_printf_fd(2, "permission denied: %s\n", file);
 		else if (pipex->fd == -1)
 			ft_printf_fd(2, "is a directory: %s\n", file);

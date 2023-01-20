@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 09:01:40 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/19 14:30:06 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/20 15:22:31 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,14 @@ char	*find_path(char *cmd, char **envp)
 	char	*path;
 
 	path = NULL;
-	i = find_env(envp);
+	if (!cmd)
+		return (path);
 	if ((cmd[0] == '.' || search_slash(cmd)) && !access(cmd, X_OK))
+	{
 		path = make_path(cmd);
+		return (path);
+	}
+	i = find_env(envp);
 	tab = ft_split(envp[i], ':');
 	i = 0;
 	while (tab[i] && !path)
