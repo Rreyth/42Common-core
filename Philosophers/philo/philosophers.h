@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 12:25:07 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/27 18:28:28 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/27 23:42:11 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,19 @@ typedef struct s_data
 
 typedef struct s_philo
 {
-	int			pos;
-	int			nb_eat;
-	pthread_t	tid;
-	t_data		*data;
+	int				pos;
+	int				nb_eat;
+	pthread_t		tid;
+	t_data			*data;
+	struct timeval	start_time;
 	//fork left
 	//fork right
+	//last eat
 }			t_philo;
 
 /*----------------------------------------------------------------------------*/
 
-int		parse_init(int ac, char **av, t_data *data, t_philo *philo);
+t_philo	*parse_init(int ac, char **av, t_data *data);
 
 void	*launch_routine(void *p);
 

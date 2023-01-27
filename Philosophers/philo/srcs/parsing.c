@@ -6,12 +6,11 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:07:12 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/27 18:23:35 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/27 23:45:15 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
-#include <pthread.h>
 
 int	ft_atoi(const char *nptr)
 {
@@ -54,29 +53,35 @@ int	invalid_arg(int ac, t_data *data)
 	return (0);
 }
 
-int	init_philo(t_philo *philo, t_data *data)
+t_philo	*init_philo(t_data *data)
 {
-	int	i;
+	t_philo			*philo;
+	struct timeval	time;
+	int				i;
 
 	i = 0;
 	philo = malloc(sizeof(t_philo) * data->nb_philo);
 	if (!philo)
 	{
 		write(2, "malloc error\n", 13);
-		return (2);
+		return (NULL);
 	}
+	gettimeofday(&time, NULL);
 	while (i < data->nb_philo)
 	{
 		philo[i].pos = i;
 		philo[i].nb_eat = data->nb_eat;
 		philo[i].data = data;
+		philo[i].start_time = time;
 		i++;
 	}
-	return (0);
+	return (philo);
 }
 
-int	parse_init(int ac, char **av, t_data *data, t_philo *philo)
+t_philo	*parse_init(int ac, char **av, t_data *data)
 {
+	t_philo	*philo;
+
 	data->nb_philo = ft_atoi(av[1]);
 	data->time_die = ft_atoi(av[2]);
 	data->time_eat = ft_atoi(av[3]);
@@ -88,9 +93,10 @@ int	parse_init(int ac, char **av, t_data *data, t_philo *philo)
 	else
 		data->nb_eat = -2;
 	if (invalid_arg(ac, data))
-		return (2);
-	if (init_philo(philo, data))
-		return (2);
-	pthread_mutex_init(&data->test_mutex, NULL);
-	return (0);
+		return (NULL);
+	philo = init_philo(data);
+	if (!philo)
+		return (NULL);
+//	pthread_mutex_init(&data->test_mutex, NULL);
+	return (philo);
 }

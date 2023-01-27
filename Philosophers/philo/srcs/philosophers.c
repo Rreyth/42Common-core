@@ -6,23 +6,12 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 12:26:20 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/27 18:26:57 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/27 23:45:02 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
-/*
-void	*routined(void *philo)
-{
-	t_philo	*p;
 
-	p = (t_philo *) philo;
-	pthread_mutex_lock(&p->data->test_mutex);
-	p->data->test++;
-	pthread_mutex_unlock(&p->data->test_mutex);
-	return (NULL);
-}
-*/
 void	manage_philo(t_philo *philo, t_data *data)
 {
 	int	i;
@@ -34,7 +23,7 @@ void	manage_philo(t_philo *philo, t_data *data)
 		i++;
 	}
 	i = 0;
-	while (i < philo->data->nb_philo)
+	while (i < data->nb_philo)
 	{
 		pthread_join(philo[i].tid, NULL);
 		i++;
@@ -46,20 +35,17 @@ int	main(int argc, char **argv)
 	t_data	data;
 	t_philo	*philo;
 
-	philo = NULL;
 	if (argc < 5 || argc > 6)
 	{
 		write(2, "Invalid number of arguments\n", 28);
 		return (2);
 	}
-	if (parse_init(argc, argv, &data, philo))
+	philo = parse_init(argc, argv, &data);
+	if (!philo)
 		return (2);
-	//launch + join thread fct
 	manage_philo(philo, &data);
 	if (philo)
 		free(philo);
-	printf("test = %d\n", data.test);
-	pthread_mutex_destroy(&data.test_mutex);
-	// free
+//	pthread_mutex_destroy(&data.test_mutex);
 	return (0);
 }
