@@ -6,7 +6,7 @@
 #    By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/24 15:12:23 by tdhaussy          #+#    #+#              #
-#    Updated: 2023/01/27 17:37:51 by tdhaussy         ###   ########.fr        #
+#    Updated: 2023/01/29 20:55:30 by tdhaussy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ NAME = philo
 
 SRC =	srcs/philosophers.c \
 		srcs/parsing.c \
-		srcs/philo_routine.c
+		srcs/philo_routine.c \
+		srcs/philo_utils.c \
+		srcs/supervisor.c
 
 RM = rm -rf
 
