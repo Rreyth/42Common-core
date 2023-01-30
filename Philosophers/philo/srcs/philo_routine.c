@@ -56,7 +56,7 @@ void	*launch_routine(void *p)
 	i = 0;
 	philo = (t_philo *) p;
 	if (philo->pos % 2 != 0)
-		usleep(500);
+		usleep(2000);
 	pthread_mutex_lock(&philo->data->var_mtx);
 	while (!philo->data->end)
 	{

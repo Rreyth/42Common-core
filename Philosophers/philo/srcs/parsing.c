@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:07:12 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/30 13:39:34 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/30 18:45:33 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,25 @@ int	ft_atoi(const char *nptr)
 {
 	int		i;
 	long	result;
-	int		negative;
 
 	i = 0;
 	result = 0;
-	negative = 1;
 	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == 32)
 		i++;
-	if (nptr[i] == '+' || nptr[i] == '-')
-	{
-		if (nptr[i] == '-')
-			negative *= -1;
+	if (nptr[i] == '-')
+		return (-1);
+	if (nptr[i] == '+')
 		i++;
-	}
 	while (nptr[i] >= '0' && nptr[i] <= '9')
 	{
 		result = result * 10 + (nptr[i] - 48);
-		if (result * negative > 2147483647)
-			return (-1);
-		if (result * negative < -2147483648)
+		if (result > 2147483647)
 			return (-1);
 		i++;
 	}
-	return (result * negative);
+	if (nptr[i])
+		return (-1);
+	return (result);
 }
 
 int	invalid_arg(int ac, t_data *data)
