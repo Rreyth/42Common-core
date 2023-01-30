@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 12:26:20 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/29 20:00:06 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/30 13:49:07 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,6 @@ int	main(int argc, char **argv)
 	manage_philo(philo, &data);
 	if (philo)
 		free(philo);
-	while (i < data.nb_philo)
-	{
-		pthread_mutex_destroy(&data.fork[i]);
-		i++;
-	}
-	if (data.fork)
-		free(data.fork);
-	pthread_mutex_destroy(&data.print_mutex);
+	clear_data(&data);
 	return (0);
 }

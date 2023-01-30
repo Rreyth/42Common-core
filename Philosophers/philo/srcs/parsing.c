@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:07:12 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/29 20:32:46 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/30 13:39:34 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,26 @@ t_philo	*init_philo(t_data *data)
 	return (philo);
 }
 
+void	mutex_init(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	pthread_mutex_init(&data->print_mtx, NULL);
+	pthread_mutex_init(&data->var_mtx, NULL);
+	while (!data->fork)
+		data->fork = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
+	while (i < data->nb_philo)
+	{
+		pthread_mutex_init(&data->fork[i], NULL);
+		i++;
+	}
+}
+
 t_philo	*parse_init(int ac, char **av, t_data *data)
 {
 	t_philo	*philo;
-	int		i;
 
-	i = 0;
 	data->fork = NULL;
 	data->nb_philo = ft_atoi(av[1]);
 	data->time_die = ft_atoi(av[2]);
@@ -100,13 +114,6 @@ t_philo	*parse_init(int ac, char **av, t_data *data)
 	philo = init_philo(data);
 	if (!philo)
 		return (NULL);
-	pthread_mutex_init(&data->print_mutex, NULL);
-	while (!data->fork)
-		data->fork = malloc(sizeof(pthread_mutex_t) * data->nb_philo);
-	while (i < data->nb_philo)
-	{
-		pthread_mutex_init(&data->fork[i], NULL);
-		i++;
-	}
+	mutex_init(data);
 	return (philo);
 }

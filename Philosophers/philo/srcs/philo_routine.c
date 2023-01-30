@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:33:00 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/29 20:33:37 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/30 12:37:40 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,37 @@
 
 void	think_routine(t_philo *philo)
 {
-	long			timer;
-
-	pthread_mutex_lock(&philo->data->print_mutex);
-	timer = set_timer(philo);
-	printf("-%ld-\t%d is thinking\n", timer, philo->pos + 1);
-	pthread_mutex_unlock(&philo->data->print_mutex);
+	display_act(philo, 0);
 }
 
 void	sleep_routine(t_philo *philo)
 {
-	long			timer;
-
-	pthread_mutex_lock(&philo->data->print_mutex);
-	timer = set_timer(philo);
-	printf("-%ld-\t%d is sleeping\n", timer, philo->pos + 1);
-	pthread_mutex_unlock(&philo->data->print_mutex);
+	display_act(philo, 1);
 	usleep(philo->data->time_sleep * 1000);
 }
 
 void	eat_routine(t_philo *philo)
 {
-	long	timer;
-
-	if (philo->data->nb_philo == 1)
-		wait_death(philo);
 	pthread_mutex_lock(&philo->data->fork[philo->pos]);
-	pthread_mutex_lock(&philo->data->print_mutex);
-	timer = set_timer(philo);
-	printf("-%ld-\t%d has taken a fork\n", timer, philo->pos + 1);
-	pthread_mutex_unlock(&philo->data->print_mutex);
-	if (philo->pos + 1 != philo->data->nb_philo)
-		pthread_mutex_lock(&philo->data->fork[philo->pos + 1]);
-	else
-		pthread_mutex_lock(&philo->data->fork[0]);
-	pthread_mutex_lock(&philo->data->print_mutex);
-	timer = set_timer(philo);
-	printf("-%ld-\t%d has taken a fork\n", timer, philo->pos + 1);
-	printf("-%ld-\t%d is eating\n", timer, philo->pos + 1);
-	pthread_mutex_unlock(&philo->data->print_mutex);
-	philo->last_eat = timer;
-	philo->nb_eat--;
-	usleep(philo->data->time_eat * 1000);
-	if (philo->pos + 1 != philo->data->nb_philo)
-		pthread_mutex_unlock(&philo->data->fork[philo->pos + 1]);
-	else
-		pthread_mutex_unlock(&philo->data->fork[0]);
+	display_act(philo, 2);
+	if (!only_philo(philo))
+	{
+		if (philo->pos + 1 != philo->data->nb_philo)
+			pthread_mutex_lock(&philo->data->fork[philo->pos + 1]);
+		else
+			pthread_mutex_lock(&philo->data->fork[0]);
+		philo->last_eat = set_timer(philo);
+		display_act(philo, 2);
+		display_act(philo, 3);
+		pthread_mutex_lock(&philo->data->var_mtx);
+		philo->nb_eat--;
+		pthread_mutex_unlock(&philo->data->var_mtx);
+		usleep(philo->data->time_eat * 1000);
+		if (philo->pos + 1 != philo->data->nb_philo)
+			pthread_mutex_unlock(&philo->data->fork[philo->pos + 1]);
+		else
+			pthread_mutex_unlock(&philo->data->fork[0]);
+	}
 	pthread_mutex_unlock(&philo->data->fork[philo->pos]);
 }
 
@@ -70,12 +55,16 @@ void	*launch_routine(void *p)
 
 	i = 0;
 	philo = (t_philo *) p;
+	pthread_mutex_lock(&philo->data->var_mtx);
 	while (!philo->data->end)
 	{
+		pthread_mutex_unlock(&philo->data->var_mtx);
 		think_routine(philo);
 		eat_routine(philo);
 		sleep_routine(philo);
 		i++;
+		pthread_mutex_lock(&philo->data->var_mtx);
 	}
+	pthread_mutex_unlock(&philo->data->var_mtx);
 	return (NULL);
 }
