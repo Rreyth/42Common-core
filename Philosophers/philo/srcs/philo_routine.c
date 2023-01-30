@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:33:00 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/30 12:37:40 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/30 14:21:42 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	*launch_routine(void *p)
 
 	i = 0;
 	philo = (t_philo *) p;
+	if (philo->pos % 2 != 0)
+		usleep(500);
 	pthread_mutex_lock(&philo->data->var_mtx);
 	while (!philo->data->end)
 	{
