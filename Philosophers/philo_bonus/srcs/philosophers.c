@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 12:26:20 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/30 13:49:07 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/31 19:11:16 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,28 @@
 
 void	manage_philo(t_philo *philo, t_data *data)
 {
-	int			i;
-	pthread_t	tid;
+	int		i;
+	pid_t	pid;
 
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		pthread_create(&philo[i].tid, NULL, launch_routine, &philo[i]);
+		philo[i].pid = fork();
+		if (philo[i].pid == 0)
+			launch_routine(&philo[i]);
 		i++;
 	}
-	pthread_create(&tid, NULL, supervisor, philo);
+	pid = fork();
+	if (pid == 0)
+		check_hungry(data);
+	sem_wait(data->dead);
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		pthread_join(philo[i].tid, NULL);
+		kill(philo[i].pid, SIGKILL);
 		i++;
 	}
-	pthread_join(tid, NULL);
+	kill(pid, SIGKILL);
 }
 
 int	main(int argc, char **argv)
@@ -47,8 +52,7 @@ int	main(int argc, char **argv)
 	if (!philo)
 		return (2);
 	manage_philo(philo, &data);
-	if (philo)
-		free(philo);
-	clear_data(&data);
+	clear_data(&data, philo);
+	free(philo);
 	return (0);
 }

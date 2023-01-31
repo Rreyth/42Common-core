@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:33:00 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/31 16:27:29 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/01/31 19:40:36 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,45 +37,40 @@ void	sleep_routine(t_philo *philo)
 
 void	eat_routine(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->data->fork[philo->pos]);
+	sem_wait(philo->data->fork);
 	display_act(philo, 2);
 	if (!only_philo(philo))
 	{
-		if (philo->pos + 1 != philo->data->nb_philo)
-			pthread_mutex_lock(&philo->data->fork[philo->pos + 1]);
-		else
-			pthread_mutex_lock(&philo->data->fork[0]);
+		sem_wait(philo->data->fork);
 		philo->last_eat = set_timer(philo);
 		display_act(philo, 2);
 		display_act(philo, 3);
-		pthread_mutex_lock(&philo->data->var_mtx);
+		sem_wait(philo->var_sem);
 		philo->nb_eat--;
-		pthread_mutex_unlock(&philo->data->var_mtx);
+		sem_post(philo->var_sem);
 		philo_sleep(philo, philo->data->time_eat);
-		if (philo->pos + 1 != philo->data->nb_philo)
-			pthread_mutex_unlock(&philo->data->fork[philo->pos + 1]);
-		else
-			pthread_mutex_unlock(&philo->data->fork[0]);
+		sem_post(philo->data->fork);
 	}
-	pthread_mutex_unlock(&philo->data->fork[philo->pos]);
+	sem_post(philo->data->fork);
 }
 
-void	*launch_routine(void *p)
+void	launch_routine(t_philo *philo)
 {
-	t_philo	*philo;
+	pthread_t	tid;
 
-	philo = (t_philo *) p;
-	if (philo->pos % 2 != 0)
-		usleep(2000);
-	pthread_mutex_lock(&philo->data->var_mtx);
+	pthread_create(&tid, NULL, supervisor, philo);
+	pthread_detach(tid);
+//	if (philo->pos % 2 != 0)
+//		usleep(2000);
+	sem_wait(philo->var_sem);
 	while (!philo->data->end)
 	{
-		pthread_mutex_unlock(&philo->data->var_mtx);
+		sem_post(philo->var_sem);
 		think_routine(philo);
 		eat_routine(philo);
 		sleep_routine(philo);
-		pthread_mutex_lock(&philo->data->var_mtx);
+		sem_wait(philo->var_sem);
 	}
-	pthread_mutex_unlock(&philo->data->var_mtx);
-	return (NULL);
+	sem_post(philo->var_sem);
+	exit (0);
 }
