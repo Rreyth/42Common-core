@@ -12,9 +12,11 @@
 
 CC = c++
 
-NAME = megaphone
+NAME = phonebook
 
-SRC =	megaphone.cpp
+SRC =	main.cpp \
+		PhoneBook.cpp \
+		Contact.cpp
 
 OBJ =	$(SRC:.cpp=.o)
 
