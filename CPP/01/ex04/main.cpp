@@ -20,26 +20,43 @@ std::string search_replace(std::string str, std::string s1, std::string s2)
         i = str.find(s1, start);
         if (i == std::string::npos)
             break;
-        new_str += str.substr(start, i);
+        new_str += str.substr(start, i - start);
         new_str += s2;
         start = i + s1.length();
-        std::cout << new_str << std::endl;
     }
+    new_str += str.substr(start, str.length() - start);
     return (new_str);
 }
 
 void    read_and_write(char *name, char *s1, char *s2)
 {
     std::ifstream file(name, std::ifstream::in);
-    std::ofstream output(outname(name).c_str(), std::ofstream::out);
-    std::string tmp;
 
+    if (!file.is_open())
+    {
+        std::cout << "Could not open : " << name << std::endl;
+        return ;
+    }
+
+    std::ofstream output(outname(name).c_str(), std::ofstream::out);
+
+    if (!output.is_open())
+    {
+        std::cout << outname(name) << ": Permission denied" << std::endl;
+        return;
+    }
+
+    std::string line;
+    std::string final;
+
+    std::getline(file, line);
     while (file)
     {
-        std::getline(file, tmp);
-        tmp = search_replace(tmp, s1, s2);
-        output << tmp << std::endl;
+        final += line + '\n';
+        std::getline(file, line);
     }
+    final = search_replace(final, s1, s2);
+    output << final;
     file.close();
     output.close();
 }
