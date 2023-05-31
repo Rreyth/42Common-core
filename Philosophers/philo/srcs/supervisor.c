@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 20:01:02 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/30 13:31:04 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/02/25 13:16:09 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void	check_death(t_philo *philo)
 	curr = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	while (i < philo->data->nb_philo)
 	{
+		pthread_mutex_lock(&philo->data->var_mtx);
 		if (curr > philo[i].start + philo[i].last_eat + philo[i].data->time_die)
 		{
-			pthread_mutex_lock(&philo->data->var_mtx);
 			philo[i].data->end = 1;
 			pthread_mutex_unlock(&philo->data->var_mtx);
 			pthread_mutex_lock(&philo->data->print_mtx);
@@ -57,6 +57,7 @@ void	check_death(t_philo *philo)
 			pthread_mutex_unlock(&philo->data->print_mtx);
 			return ;
 		}
+		pthread_mutex_unlock(&philo->data->var_mtx);
 		i++;
 	}
 }

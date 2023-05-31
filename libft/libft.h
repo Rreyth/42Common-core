@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 12:45:19 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/10/04 21:26:02 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:08:01 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define LIBFT_H
 
 # include <stdlib.h>
+# include <stdarg.h>
+# include <unistd.h>
+
+/*---------------------------------LIBFT--------------------------------------*/
 
 typedef struct s_list
 {
@@ -64,5 +68,26 @@ char	**ft_split(char const *s, char c);
 t_list	*ft_lstnew(void *content);
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+/*---------------------------------FT_PRINTF----------------------------------*/
+
+int		ft_printf(const char *s, ...);
+int		ft_putnbr_base(long n, char *base);
+int		ft_putptr_pf(unsigned long n);
+int		ft_putstr_pf(char *s);
+int		ft_putchar_pf(char c);
+
+/*---------------------------------GET_NEXT_LINE------------------------------*/
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
+
+void	gnl_free_all(char **s1, char **s2);
+void	gnl_free_one(char **s);
+char	*get_next_line(int fd);
+char	*gnl_strjoin(char *s1, char *s2);
+char	*gnl_realloc_stock(char *s);
+int		gnl_find_nl(char *s);
 
 #endif

@@ -73,6 +73,8 @@ int	ft_printf(const char *s, ...)
 
 	i = 0;
 	count = 0;
+	if (!s)
+		return (-1);
 	va_start(arg, s);
 	while (s[i])
 	{

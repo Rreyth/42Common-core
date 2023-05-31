@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 02:59:22 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/10/10 01:50:08 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:41:50 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,6 @@ int	main()
 	count2 = ft_printf("%p\n", (void *) -1);
 	printf("ft_printf : %d\n", count2);
 //	printf("LE VRAI \n%p\n%p", ptr, (void *) -1);*/
-	ft_printf("%%c");
+	ft_printf("%%%c\n", 'h');
 	return (0);
 }

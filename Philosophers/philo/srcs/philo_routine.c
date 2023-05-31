@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:33:00 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/31 16:27:29 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/02/25 13:15:17 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,15 @@ void	philo_sleep(t_philo *philo, int time)
 	int	i;
 
 	i = 0;
+	pthread_mutex_lock(&philo->data->var_mtx);
 	while (!philo->data->end && i < time)
 	{
+		pthread_mutex_unlock(&philo->data->var_mtx);
 		usleep(50000);
 		i += 50;
+		pthread_mutex_lock(&philo->data->var_mtx);
 	}
+	pthread_mutex_unlock(&philo->data->var_mtx);
 }
 
 void	think_routine(t_philo *philo)
@@ -45,7 +49,9 @@ void	eat_routine(t_philo *philo)
 			pthread_mutex_lock(&philo->data->fork[philo->pos + 1]);
 		else
 			pthread_mutex_lock(&philo->data->fork[0]);
+		pthread_mutex_lock(&philo->data->var_mtx);
 		philo->last_eat = set_timer(philo);
+		pthread_mutex_unlock(&philo->data->var_mtx);
 		display_act(philo, 2);
 		display_act(philo, 3);
 		pthread_mutex_lock(&philo->data->var_mtx);

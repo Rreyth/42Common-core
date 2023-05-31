@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 17:52:47 by tdhaussy          #+#    #+#             */
-/*   Updated: 2022/11/08 22:57:20 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2022/11/09 10:47:06 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ char	*get_next_line(int fd)
 
 	ret = BUFFER_SIZE;
 	str = NULL;
+	if (BUFFER_SIZE < 1)
+		return (NULL);
 	if (stock)
 	{
 		str = ft_strjoin(str, stock);

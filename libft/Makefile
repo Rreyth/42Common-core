@@ -6,11 +6,11 @@
 #    By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/27 14:30:49 by tdhaussy          #+#    #+#              #
-#    Updated: 2022/10/05 18:14:26 by tdhaussy         ###   ########.fr        #
+#    Updated: 2022/12/05 14:42:07 by tdhaussy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC = gcc
+CC = clang
 
 NAME = libft.a
 
@@ -48,26 +48,21 @@ SRC =	ft_isalpha.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c \
-
-SRC_BONUS =	ft_lstnew_bonus.c \
-			ft_lstadd_front_bonus.c \
-			ft_lstsize_bonus.c \
-			ft_lstlast_bonus.c \
-			ft_lstadd_back_bonus.c \
-			ft_lstdelone_bonus.c \
-			ft_lstclear_bonus.c \
-			ft_lstiter_bonus.c \
-			ft_lstmap_bonus.c
-
-MAKEFLAGS =	--no-print-directory
-
-ifdef	BONUS
-	SRC += $(SRC_BONUS)
-endif
+		ft_lstnew.c \
+		ft_lstadd_front.c \
+		ft_lstsize.c \
+		ft_lstlast.c \
+		ft_lstadd_back.c \
+		ft_lstdelone.c \
+		ft_lstclear.c \
+		ft_lstiter.c \
+		ft_lstmap.c \
+		ft_printf.c \
+		ft_printf_utils.c \
+		get_next_line.c \
+		get_next_line_utils.c
 
 OBJ=$(SRC:.c=.o)
-
-OBJ_BONUS=$(SRC_BONUS:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror
 
@@ -79,14 +74,12 @@ all: $(NAME)
 $(NAME):	$(OBJ)
 		ar crs $@ $^
 
-bonus: $(OBJ) $(OBJ_BONUS)
-		@make BONUS=true
-
 clean:
-		$(RM) $(OBJ) $(OBJ_BONUS)
+		$(RM) $(OBJ)
 
 fclean: clean
 		$(RM) $(NAME)
 
 re:		fclean all
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
+.SILENT:

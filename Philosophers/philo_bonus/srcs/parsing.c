@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 13:07:12 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/31 19:00:17 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/02/25 13:46:13 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,12 @@ void	init_sem(t_data *data, t_philo *philo)
 	}
 	data->print_sem = sem_open("print", O_CREAT, 0644, 1);
 	data->fork = sem_open("fork", O_CREAT, 0644, data->nb_philo);
+	data->wait_fork = sem_open("wait", O_CREAT, 0644, 1);
 	data->dead = sem_open("dead", O_CREAT, 0644, 0);
 	data->eat = sem_open("eat", O_CREAT, 0644, 0);
 	sem_unlink("print");
 	sem_unlink("fork");
+	sem_unlink("wait");
 	sem_unlink("dead");
 	sem_unlink("eat");
 }

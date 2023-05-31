@@ -71,6 +71,8 @@ char	*get_next_line(int fd)
 
 	ret = BUFFER_SIZE;
 	str = NULL;
+	if (BUFFER_SIZE < 1)
+		return (NULL);
 	if (stock[fd])
 	{
 		str = ft_strjoin(str, stock[fd]);

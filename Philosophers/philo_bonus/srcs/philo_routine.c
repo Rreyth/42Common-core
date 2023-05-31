@@ -6,11 +6,12 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 17:33:00 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/31 19:40:36 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/02/25 13:44:17 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philosophers.h"
+#include <semaphore.h>
 
 void	philo_sleep(t_philo *philo, int time)
 {
@@ -37,11 +38,13 @@ void	sleep_routine(t_philo *philo)
 
 void	eat_routine(t_philo *philo)
 {
+	sem_wait(philo->data->wait_fork);
 	sem_wait(philo->data->fork);
 	display_act(philo, 2);
 	if (!only_philo(philo))
 	{
 		sem_wait(philo->data->fork);
+		sem_post(philo->data->wait_fork);
 		philo->last_eat = set_timer(philo);
 		display_act(philo, 2);
 		display_act(philo, 3);
@@ -60,8 +63,6 @@ void	launch_routine(t_philo *philo)
 
 	pthread_create(&tid, NULL, supervisor, philo);
 	pthread_detach(tid);
-//	if (philo->pos % 2 != 0)
-//		usleep(2000);
 	sem_wait(philo->var_sem);
 	while (!philo->data->end)
 	{

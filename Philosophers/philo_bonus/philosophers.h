@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 12:25:07 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/31 18:49:38 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/02/25 13:41:13 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_data
 	sem_t	*fork;
 	sem_t	*dead;
 	sem_t	*eat;
+	sem_t	*wait_fork;
 }			t_data;
 
 typedef struct s_philo

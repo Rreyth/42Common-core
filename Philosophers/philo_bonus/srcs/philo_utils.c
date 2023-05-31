@@ -6,7 +6,7 @@
 /*   By: tdhaussy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 17:24:44 by tdhaussy          #+#    #+#             */
-/*   Updated: 2023/01/31 19:23:17 by tdhaussy         ###   ########.fr       */
+/*   Updated: 2023/02/25 13:45:05 by tdhaussy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,5 @@ void	clear_data(t_data *data, t_philo *philo)
 	sem_close(data->fork);
 	sem_close(data->dead);
 	sem_close(data->eat);
+	sem_close(data->wait_fork);
 }

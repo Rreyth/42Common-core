@@ -3,27 +3,38 @@
 int main( void )
 {
     Fixed a;
-    Fixed const b( 10 );
-    Fixed const c( 42.42f );
-    Fixed const d( b );
-    Fixed e(3.33f);
+    Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
+    Fixed c(3.07f);
 
-    a = Fixed( 1234.4321f );
+    std::cout << "increment" << std::endl;
+    std::cout << "a = " << a << std::endl;
+    std::cout << "pre " << ++a << std::endl;
+    std::cout << "a = " << a << std::endl;
+    std::cout << "post " << a++ << std::endl;
+    std::cout << "a = " << a << std::endl;
+    std::cout << "decrement" << std::endl;
+    std::cout << "a = " << a << std::endl;
+    std::cout << "pre " << --a << std::endl;
+    std::cout << "a = " << a << std::endl;
+    std::cout << "post " << a-- << std::endl;
+    std::cout << "a = " << a << std::endl;
+    std::cout << "arithmetic operators" << std::endl;
+    std::cout << "b * c = " << b * c << std::endl;
+    std::cout << "b + c = " << b + c << std::endl;
+    std::cout << "b - c = " << b - c << std::endl;
+    std::cout << "b / c = " << b / c << std::endl;
+    std::cout << "comparison operators" << std::endl;
+    std::cout << "b = " << b << " | c = " << c << std::endl;
+    std::cout << "b > c ? " << (b > c) << std::endl;
+    std::cout << "b < c ? " << (b < c) << std::endl;
+    std::cout << "b >= c ? " << (b >= c) << std::endl;
+    std::cout << "b <= c ? " << (b <= c) << std::endl;
+    std::cout << "b == c ? " << (b == c) << std::endl;
+    std::cout << "c == c ? " << (c == c) << std::endl;
+    std::cout << "b != c ? " << (b != c) << std::endl;
+    std::cout << "c != c ? " << (c != c) << std::endl;
+    std::cout << "max " << Fixed::max( c, b ) << std::endl;
+    std::cout << "min " << Fixed::min( c, b ) << std::endl;
 
-    std::cout << "a is " << a << std::endl;
-    std::cout << "b is " << b << std::endl;
-    std::cout << "c is " << c << std::endl;
-    std::cout << "d is " << d << std::endl;
- 
-    std::cout << "a is " << a.toInt() << " as integer" << std::endl;
-    std::cout << "b is " << b.toInt() << " as integer" << std::endl;
-    std::cout << "c is " << c.toInt() << " as integer" << std::endl;
-    std::cout << "d is " << d.toInt() << " as integer" << std::endl;
-
-    std::cout << "test e : " << e << std::endl;
-    std::cout << "test e (int) : " << e.toInt() << std::endl;
-    std::cout << "e get raw : " << e.getRawBits() << std::endl;
-    e.setRawBits(12);
-    std::cout << "e after mod : " << e.getRawBits() << std::endl;
     return 0;
 }
