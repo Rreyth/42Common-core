@@ -6,7 +6,7 @@
 #    By: tdhaussy <tdhaussy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/21 18:24:04 by tdhaussy          #+#    #+#              #
-#    Updated: 2023/05/31 08:32:38 by tdhaussy         ###   ########.fr        #
+#    Updated: 2023/05/31 09:40:02 by tdhaussy         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -15,7 +15,9 @@ CC = c++
 NAME = BSP
 
 SRC =	main.cpp \
-		Fixed.cpp
+		Fixed.cpp \
+		Point.cpp \
+		bsp.cpp
 
 OBJ =	$(SRC:.cpp=.o)
 
