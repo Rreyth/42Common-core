@@ -1,29 +1,33 @@
 #include "Point.hpp"
+#include "Fixed.hpp"
 
-Point::Point()
+Point::Point() : x(), y()
 {
-    x(0);
-    y(0);
 }
 
-Point::Point(const float p1, const float p2)
+Point::Point(const float p1, const float p2) : x(p1), y(p2)
 {
-    x(p1);
-    y(p2);
 }
 
-Point::Point(const Point &other)
+Point::Point(const Point &other) : x(other.x.toFloat()), y(other.y.toFloat())
 {
-    *this = other;
 }
 
 Point::~Point()
 {
-
 }
 
 Point & Point::operator = (const Point &other)
 {
-    x(other.x.toFloat);
-    y(other.y.toFloat);
+    (void) other;
+    return *this;
+}
+
+bool Point::operator == (const Point &other) const
+{
+    if (x != other.x)
+        return (false);
+    if (y != other.y)
+        return (false);
+    return (true);
 }

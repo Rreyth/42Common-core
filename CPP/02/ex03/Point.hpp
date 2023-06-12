@@ -13,7 +13,8 @@ class Point{
             Point(const Point &other);
             ~Point();
             Point & operator = (const Point &other);
-}
+            bool operator == (const Point &other) const;
+};
 
 
 #endif
