@@ -12,8 +12,9 @@ class Point{
             Point(const float p1, const float p2);
             Point(const Point &other);
             ~Point();
+			Fixed	getXpos();
+			Fixed	getYpos();
             Point & operator = (const Point &other);
-            bool operator == (const Point &other) const;
 };
 
 

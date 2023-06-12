@@ -17,17 +17,18 @@ Point::~Point()
 {
 }
 
+Fixed	Point::getXpos()
+{
+	return (x);
+}
+
+Fixed	Point::getYpos()
+{
+	return (y);
+}
+
 Point & Point::operator = (const Point &other)
 {
     (void) other;
     return *this;
-}
-
-bool Point::operator == (const Point &other) const
-{
-    if (x != other.x)
-        return (false);
-    if (y != other.y)
-        return (false);
-    return (true);
 }
