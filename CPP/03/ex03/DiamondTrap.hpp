@@ -12,7 +12,7 @@ class DiamondTrap : public ScavTrap, public FragTrap
 	public:
 			DiamondTrap();
 			DiamondTrap(std::string name);
-//			DiamondTrap(const DiamondTrap &other);
+			DiamondTrap(const DiamondTrap &other);
 			~DiamondTrap();
 			DiamondTrap & operator = (const DiamondTrap &other);
 			void whoAmI();

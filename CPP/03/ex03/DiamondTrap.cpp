@@ -11,11 +11,11 @@ DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name", 100, 
 	std::cout << "DiamondTrap " << name << " constructed." << std::endl;
 	this->name = name;
 }
-/*
-DiamondTrap::DiamondTrap(const DiamondTrap &other) : FragTrap(other.name), ScavTrap(name)
+
+DiamondTrap::DiamondTrap(const DiamondTrap &other) : ClapTrap(other.name + "_clap_name", other.hit_points, other.energy_points, other.attack_damage), ScavTrap(), FragTrap()
 {
 	this->name = other.name;
-}*/
+}
 
 DiamondTrap::~DiamondTrap()
 {

@@ -5,27 +5,28 @@
 
 int	main(void)
 {
-/*	FragTrap Billy("Billy");
+	FragTrap Billy("Billy");
 	ScavTrap Philippe("PhilippeB");
+	DiamondTrap Theodule("Theodule");
 
+	std::cout << std::endl;
 	Philippe.guardGate();
+	Theodule.guardGate();
 	Billy.attack("PhilippeB");
 	Philippe.takeDamage(Billy.get_damage());
-	Philippe.beRepaired(15);
+	Philippe.beRepaired(1);
 	Philippe.attack("Billy");
 	Billy.takeDamage(Philippe.get_damage());
 	Billy.beRepaired(2);
-	Philippe.takeDamage(100);
-	Philippe.takeDamage(1);
-	Philippe.beRepaired(1);
-	Philippe.attack("Billy");
+	Theodule.attack("Billy & PhilippeB");
+	Billy.takeDamage(Theodule.get_damage());
+	Philippe.takeDamage(Theodule.get_damage());
+	Philippe.attack("Theodule");
+	Theodule.takeDamage(Philippe.get_damage());
 	Billy.highFivesGuys();
-	std::cout << Billy << std::endl << Philippe << std::endl;*/
-
-	DiamondTrap test("test");
-	test.whoAmI();
-	test.guardGate();
-	test.highFivesGuys();
-	std::cout << test << std::endl;
+	Theodule.highFivesGuys();
+	Theodule.beRepaired(3);
+	Theodule.whoAmI();
+	std::cout << std::endl << Billy << std::endl << Philippe << std::endl << Theodule << std::endl;
 	return (0);
 }
