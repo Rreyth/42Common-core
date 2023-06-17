@@ -16,6 +16,10 @@ class DiamondTrap : public ScavTrap, public FragTrap
 			~DiamondTrap();
 			DiamondTrap & operator = (const DiamondTrap &other);
 			void whoAmI();
+			using FragTrap::hit_points;
+			using ScavTrap::energy_points;
+			using FragTrap::attack_damage;
+			using ScavTrap::attack;
 };
 
 std::ostream & operator << (std::ostream &out, const DiamondTrap &a);
