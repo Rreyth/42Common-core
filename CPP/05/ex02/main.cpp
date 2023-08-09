@@ -1,5 +1,8 @@
 #include "Bureaucrat.hpp"
-#include "Form.hpp"
+#include "AForm.hpp"
+#include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 int main()
 {
@@ -7,37 +10,33 @@ int main()
 	Bureaucrat Philippe("Philippe", 150);
 	Bureaucrat Billycpy(Billy);
 
-	std::cout << "Billy: " << Billy << std::endl << "Billycpy: " << Billycpy << std::endl << "Philippe: " << Philippe << std::endl << std::endl;
+	ShrubberyCreationForm	shrubForm("HERE");
+	RobotomyRequestForm		robotForm("Gazzo");
+	PresidentialPardonForm	pardonForm("Myself");
 
-	try
-	{
-		Form form("test", 151, 12);
-	}
-	catch(std::exception& e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
+	std::cout << "Shrubbery form tests:" << std::endl << shrubForm << std::endl << std::endl;
 
-	try
-	{
-		Form form("test", 150, 0);
-	}
-	catch(std::exception& e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
+	Philippe.signForm(shrubForm);
+	Philippe.executeForm(shrubForm);
+	Billy.signForm(shrubForm);
+	Philippe.executeForm(shrubForm);
+	Billy.executeForm(shrubForm);
 
-	Form	form("get_formed", 15, 36);
+	std::cout << std::endl << "Robotomy form tests:" << std::endl << robotForm << std::endl << std::endl;
 
-	std::cout << std::endl << form << std::endl << std::endl;
+	Philippe.signForm(robotForm);
+	Philippe.executeForm(robotForm);
+	Billy.signForm(robotForm);
+	Philippe.executeForm(robotForm);
+	Billy.executeForm(robotForm);
 
-	std::cout << Philippe << " try to sign form" << std::endl;
-	Philippe.signForm(form);
-	std::cout << form << std::endl << std::endl;
+	std::cout << std::endl << "Presidential pardon form tests:" << std::endl << pardonForm << std::endl << std::endl;
 
-	std::cout << Billy << " try to sign form" << std::endl;
-	Billy.signForm(form);
-	std::cout << form << std::endl;
+	Philippe.signForm(pardonForm);
+	Philippe.executeForm(pardonForm);
+	Billy.signForm(pardonForm);
+	Philippe.executeForm(pardonForm);
+	Billy.executeForm(pardonForm);
 
 	return (0);
 }

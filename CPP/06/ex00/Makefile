@@ -6,20 +6,16 @@
 #    By: tdhaussy <tdhaussy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/21 18:24:04 by tdhaussy          #+#    #+#              #
-#    Updated: 2023/08/08 11:31:17 by tdhaussy         ###   ########.fr        #
+#    Updated: 2023/08/09 12:49:23 by tdhaussy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = c++
 
-NAME = ex02
+NAME = convert
 
 SRC =	main.cpp \
-		Bureaucrat.cpp \
-		AForm.cpp \
-		ShrubberyCreationForm.cpp \
-		RobotomyRequestForm.cpp \
-		PresidentialPardonForm.cpp
+		ScalarConverter.cpp
 
 OBJ =	$(SRC:.cpp=.o)
 

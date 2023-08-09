@@ -6,7 +6,7 @@
 #    By: tdhaussy <tdhaussy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/21 18:24:04 by tdhaussy          #+#    #+#              #
-#    Updated: 2023/08/08 11:31:17 by tdhaussy         ###   ########.fr        #
+#    Updated: 2023/08/09 19:26:50 by tdhaussy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,7 @@ CC = c++
 NAME = ex02
 
 SRC =	main.cpp \
-		Bureaucrat.cpp \
-		AForm.cpp \
-		ShrubberyCreationForm.cpp \
-		RobotomyRequestForm.cpp \
-		PresidentialPardonForm.cpp
+		Base.cpp
 
 OBJ =	$(SRC:.cpp=.o)
 
