@@ -6,16 +6,15 @@
 #    By: tdhaussy <tdhaussy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/21 18:24:04 by tdhaussy          #+#    #+#              #
-#    Updated: 2023/08/11 12:50:11 by tdhaussy         ###   ########.fr        #
+#    Updated: 2023/08/11 15:47:51 by tdhaussy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = c++
 
-NAME = ex01
+NAME = ex02
 
-SRC =	main.cpp \
-		Span.cpp
+SRC =	main.cpp
 
 OBJ =	$(SRC:.cpp=.o)
 
