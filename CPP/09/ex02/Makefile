@@ -6,16 +6,16 @@
 #    By: tdhaussy <tdhaussy@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/21 18:24:04 by tdhaussy          #+#    #+#              #
-#    Updated: 2023/08/13 11:43:18 by tdhaussy         ###   ########.fr        #
+#    Updated: 2023/08/13 13:58:56 by tdhaussy         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = c++
 
-NAME = btc
+NAME = PmergeMe
 
 SRC =	main.cpp \
-		BitcoinExchange.cpp
+		PmergeMe.cpp
 
 OBJ =	$(SRC:.cpp=.o)
 

@@ -1,0 +1,97 @@
+#include "PmergeMe.hpp"
+#include <cstdlib>
+
+////////////////////////////////////////////////////////////////////////////////
+// Constructors and destructor
+////////////////////////////////////////////////////////////////////////////////
+PmergeMe::PmergeMe( void )
+{
+
+}
+
+
+PmergeMe::PmergeMe(char **av)
+{
+	for (int i = 1; av[i]; i++)
+	{
+		vector.push_back(std::atoi(av[i]));
+		list.push_back(std::atoi(av[i]));
+	}
+}
+
+
+PmergeMe::PmergeMe(const PmergeMe &obj)
+{
+	*this = obj;
+}
+
+
+PmergeMe::~PmergeMe( void )
+{
+
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Getters and setters
+////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Operators
+////////////////////////////////////////////////////////////////////////////////
+PmergeMe	&PmergeMe::operator=(const PmergeMe &obj)
+{
+	if (this == &obj)
+		return (*this);
+	vector = obj.vector;
+	list = obj.list;
+	return (*this);
+}
+
+std::ostream & operator << (std::ostream &out, const std::vector<int> &obj)
+{
+	out << "{";
+	for (unsigned long i = 0; i < obj.size(); i++)
+	{
+		if (i != 0)
+			out << ", ";
+		out << obj[i];
+	}
+	out << "}";
+	return (out);
+}
+
+std::ostream & operator << (std::ostream &out, std::list<int> &obj)
+{
+	out << "{";
+	std::list<int>::iterator begin = obj.begin();
+	std::list<int>::iterator end = obj.end();
+	while (begin != end)
+	{
+		if (begin != obj.begin())
+			out << ", ";
+		out << *begin;
+		begin++;
+	}
+	out << "}";
+	return (out);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Public methods
+////////////////////////////////////////////////////////////////////////////////
+
+void	PmergeMe::vectorSort(char **av)
+{
+	(void) av;
+}
+
+void	PmergeMe::listSort(char **av)
+{
+	(void) av;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Private methods
+////////////////////////////////////////////////////////////////////////////////
