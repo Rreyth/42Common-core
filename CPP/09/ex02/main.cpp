@@ -24,7 +24,6 @@ bool validArgs(char **av)
 
 int	main(int ac, char **av)
 {
-	(void)av;
 	if (ac <= 2)
 	{
 		std::cout << "Error: wrong number of arguments." << std::endl;
@@ -36,14 +35,21 @@ int	main(int ac, char **av)
 		std::cout << "Error: invalid arguments." << std::endl;
 		return (1);
 	}
-	try
-	{
-		PmergeMe test(av);
+	
+	PmergeMe merge(av);
 
-	}
-	catch (std::exception &e)
-	{
-		std::cout << e.what() << std::endl;
-	}
+	std::cout << "Before:\t";
+	merge.printValues();
+
+
+	double vectorTime = merge.vectorSort();
+	double dequeTime = merge.dequeSort();
+
+	std::cout << "After:\t";
+	merge.printValues();
+
+	std::cout << "Time to process a range of\t" << merge.getVectorSize() << " elements with std::vector:\t" << vectorTime << " µs" << std::endl;
+	std::cout << "Time to process a range of\t" << merge.getDequeSize() << " elements with std::deque:\t" << dequeTime << " µs" << std::endl;
+
 	return (0);
 }

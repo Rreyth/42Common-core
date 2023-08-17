@@ -64,7 +64,7 @@ bool	validDate(std::string date)
 	int	month = std::atoi(date.substr(5, 7).c_str());
 	int	day = std::atoi(date.substr(8, 10).c_str());
 
-	if (month < 0 || month > 12 || day < 0 || day > 31 || year < 0)
+	if (month <= 0 || month > 12 || day <= 0 || day > 31 || year < 0)
 		return (false);
 	if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
 		return (false);

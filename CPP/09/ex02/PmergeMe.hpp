@@ -2,14 +2,13 @@
 # define PMERGEME_HPP
 
 #include <vector>
-#include <list>
+#include <deque>
 #include <iostream>
 
 typedef struct s_Pair
 {
-	int				value;
-	struct s_Pair	*p1;
-	struct s_Pair	*p2;
+	int	v1;
+	int	v2;
 }		t_Pair;
 
 class PmergeMe
@@ -22,15 +21,28 @@ public:
 
 	PmergeMe	&operator=(const PmergeMe &obj);
 
-	void	vectorSort(char **av);
-	void	listSort(char **av);
+	double	vectorSort();
+	double	dequeSort();
+
+	void	fillVectorPairs(t_Pair *pairs, int nb_pairs);
+	void	fillDequePairs(t_Pair *pairs, int nb_pairs);
+	void	vectorMinsInsert(t_Pair *pairs, int nb_pairs, std::vector<int> &res);
+	void	dequeMinsInsert(t_Pair *pairs, int nb_pairs, std::deque<int> &res);
+
+	void	printValues();
+
+	int		getVectorSize();
+	int		getDequeSize();
+	int		vectorPairs();
+	int		dequePairs();
+
 
 private:
 	std::vector<int>	vector;
-	std::list<int>		list;
+	std::deque<int>		deque;
 };
 
 std::ostream & operator << (std::ostream &out, const std::vector<int> &obj);
-std::ostream & operator << (std::ostream &out, std::list<int> &obj);
+std::ostream & operator << (std::ostream &out, const std::deque<int> &obj);
 
 #endif
