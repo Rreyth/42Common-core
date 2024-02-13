@@ -1,0 +1,97 @@
+version: "3.8"
+
+services:
+  nginx:
+    container_name: nginx
+    build: requirements/nginx
+    image: nginx:incep
+    env_file: .env
+    depends_on:
+      - wordpress
+    ports:
+      - 443:443
+    networks:
+      - inception
+    volumes:
+      - www:/var/www/html
+    restart: always
+
+  mariadb:
+    container_name: mariadb
+    build: requirements/mariadb
+    image: mariadb:incep
+    env_file: .env
+    ports:
+      - 3306:3306
+    networks:
+      - inception
+    volumes:
+      - database:/var/lib/mysql
+    restart: always
+
+  wordpress:
+    container_name: wordpress
+    build: requirements/wordpress
+    image: wordpress:incep
+    env_file: .env
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+    volumes:
+      - www:/var/www/html
+    restart: always
+
+  portainer:
+    container_name: portainer
+    build: requirements/portainer
+    image: portainer:incep
+    ports:
+      - 9000:9000
+    networks:
+      - inception
+    volumes:
+      - data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+
+  adminer:
+    container_name: adminer
+    build: requirements/adminer
+    image: adminer:incep
+    ports:
+      - 8000:8000
+    networks:
+      - inception
+    restart: always
+
+  redis:
+   container_name: redis
+   build: requirements/redis
+   image: redis:incep
+   networks:
+     - inception
+   restart: always
+
+volumes:
+  www:
+    name: www
+    driver: local
+    driver_opts:
+      type: none
+      device: ${WWW_PATH}
+      o: bind
+  database:
+    name: database
+    driver: local
+    driver_opts:
+      type: none
+      device: ${DB_PATH}
+      o: bind
+  data:
+    name: data
+
+networks:
+  inception:
+    name: inception
+    driver: bridge
